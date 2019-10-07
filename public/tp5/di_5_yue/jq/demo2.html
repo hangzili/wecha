@@ -1,0 +1,64 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h3>节点操作示例</h3>
+	<table border='1' class="table">
+		<tr>
+			<td>id</td>
+			<td>名字</td>
+			<td>年龄</td>
+		</tr>
+	<tbody id="list">
+		<tr>
+			<td>1</td>
+			<td class="tr">张三</td>
+			<td class="tr">11</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td class="tr">李四</td>
+			<td class="tr">11</td>
+		</tr>
+	</tbody>
+	</table>
+	<div id='page'>
+		<button class="btn">下一页</button>
+	</div>
+</body>
+</html>
+<script src='jq.js'></script>
+<script>
+	$(".btn").on("click",function(){
+		// $(".tr1").html("<td>1</td><td>王五</td><td>33</td>");
+		// $(".tr2").html("<td>2</td><td>赵六</td><td>44</td>");
+		
+		// $(".tr1").empty().append("<td>1</td><td>王五</td><td>33</td>");
+		// $(".tr2").empty().append("<td>2</td><td>赵六</td><td>44</td>");
+		$("#list").empty();
+		var tr=$("<tr></tr>");
+		tr.append("<td>1</td>");
+		tr.append("<td>王五</td>");
+		tr.append("<td>22</td>");
+		$("#list").append(tr);
+		var tr=$("<tr></tr>");
+		tr.append("<td>2</td>");
+		tr.append("<td>王五</td>");
+		tr.append("<td>44</td>");
+		$("#list").append(tr);
+		
+
+	})
+	//需求 模拟用户数据 张三 11 李四 22 王五 33 赵六 44  
+	//点击下一页按钮时
+	
+	//把张三 李四 两个tr数据 改成  王五 赵六数据
+	
+	//思路
+	//1 点击按钮 
+	//2 清空之前数据
+	//3 追加王五 赵六数据
+	
+</script>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<style>
+		ul li
+		{
+			display:inline;
+		}
+	</style>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form>
+		<input type="text" name="sname">
+		<input type="submit" value="搜索" id="sou">
+	</form>
+	<table border="1">
+		<tr>
+			<td>ID</td>
+			<td>车名</td>
+			<td>颜色</td>
+			<td>车龄</td>
+			<td>操作</td>
+		</tr>
+	<tbody id="list">
+	{volist name="list" id="v"}
+		<tr>
+			<td>{$v.sid}</td>
+			<td>{$v.sname}</td>
+			<td>{$v.scolor}</td>
+			<td>{$v.sage}</td>
+			<td></td>
+		</tr>
+	{/volist}
+	</tbody>
+	</table>
+	<div id="page">
+		{$list|raw}
+	</div>
+</body>
+</html>
+<script src="/static/jq.js"></script>
+<script>
+	$(document).on("click","#sou",function(){
+		event.preventDefault();
+		
+	})
+	$(document).on("click","#page a",function(){
+		event.preventDefault();    //------------------------分页
+		var url=$(this).attr("href");
+		// console.log(url);
+		$.ajax({
+			url:url,
+			dataType:'json',
+			success:function(res){
+				$("#list").empty();
+				$.each(res.data,function(i,v){
+					// alert("2");die;
+					var tr=$("<tr></tr>");
+					tr.append("<td>"+v.sid+"</td>");
+					tr.append("<td>"+v.sname+"</td>");
+					tr.append("<td>"+v.scolor+"</td>");
+					tr.append("<td>"+v.sage+"</td>");
+					$("#list").append(tr);
+				})
+				$("#page").html(res.page);
+			}
+		})
+	})
+</script>

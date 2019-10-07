@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	#aa{ width='0px';height='0px';background='red';}
+	</style>
+</head>
+<body>
+	<div id='aa' onmouseover="over()" onmouseout="out()"></div>
+	<button onclick='i1()' id="o1">显示</button>
+	<button onclick='i11()' id="o11">隐藏</button>
+</button>
+	<script type="text/javascript">
+	function i1()
+	{
+		var o11=document.getElementById('o1');
+		var aa1=document.getElementById('aa');
+		o11.innerHTML='显示';
+		aa1.style.width='200px';
+		aa1.style.height='200px';
+		aa1.style.background='#1ff';
+	}
+	function i11()
+	{
+		var o11=document.getElementById('o11');
+		var aa11=document.getElementById('aa');
+		o11.innerHTML='隐藏';
+		aa11.style.width='';
+		aa11.style.height='';
+		aa11.style.background='#1ff';
+	}
+	</script>
+</body>
+</html>

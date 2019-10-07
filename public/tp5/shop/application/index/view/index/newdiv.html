@@ -1,0 +1,29 @@
+<div cate_id="{$info.topInfo.cate_id}">
+    <!--Begin 进口 生鲜 Begin-->
+    <div class="i_t mar_10">
+        <span class="floor_num">{$floor_num}F</span>
+        <span class="fl">{$info.topInfo.cate_name}</span>  
+        {volist name="info['sonInfo']" id="v"}              
+        <span class="i_mores fr"> &nbsp; <a href="#">{$v.cate_name}</a>&nbsp;</span>
+        {/volist}
+    </div>
+    <div class="content">
+
+        <div class="fresh_mid">
+            <ul>
+                {volist name="info['goodsInfo']" id="v"}
+                <li>
+                    <div class="name"><a href="{:url('goods/detail')}?goods_id={$v.goods_id}">{$v.goods_name}</a></div>
+                    <div class="price">
+                        <font>￥<span>{$v.goods_price}</span></font> &nbsp; 
+                    </div>
+                    <div class="img"><a href="{:url('goods/detail')}?goods_id={$v.goods_id}"><img src="{$v.goods_img}" width="150" height="155" /></a></div>
+                </li>
+                {/volist}
+                                                                                
+            </ul>
+        </div>
+
+    </div>    
+    <!--End 进口 生鲜 End-->
+    </div>

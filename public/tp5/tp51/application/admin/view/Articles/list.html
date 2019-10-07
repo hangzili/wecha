@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<table border="1">
+		<tr>
+			<td>ID</td>
+			<!-- <td>图片</td> -->
+			<td>标题</td>
+			<td>分类</td>
+			<td>作者</td>
+			<td>添加时间</td>
+			<td>操作</td>
+		</tr>
+	{volist name="list" id="v"}
+		<tr>
+			<td>{$v.id}</td>
+			<!-- <td><img src="{$v.image}"></td> -->
+			<td>{$v.title}</td>
+			<td>{$v.c_name}</td>
+			<td>{$v.content}</td>
+			<td>{$v.create_time}</td>
+			<td>
+				<a href="{:url('del?id='.$v['id'])}">删除</a>
+			</td>
+		</tr>
+	{/volist}
+	</table>
+</body>
+</html>

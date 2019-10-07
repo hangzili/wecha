@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><base href="/static/admin/">
+  <style>
+    ul li 
+    {
+      display:inline;
+    }
+  </style>
+<title>SHOP 管理中心 - 品牌管理 </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="styles/general.css" rel="stylesheet" type="text/css" />
+<link href="styles/main.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<h1>
+<span class="action-span"><a href="{:url('add')}">添加品牌</a></span>
+<span class="action-span1"><a href="index.php?act=main">SHOP 管理中心</a> </span><span id="search_id" class="action-span1"> - 商品品牌 </span>
+<div style="clear:both"></div>
+</h1>
+
+<div class="form-div">
+  <form action="javascript:search_brand()" name="searchForm">
+    <img src="images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH">
+     <input type="text" name="brand_name" size="15">
+    <input type="submit" value=" 搜索 " class="button">
+  </form>
+</div>
+
+<form method="post" action="" name="listForm">
+<!-- start brand list -->
+<div class="list-div" id="listDiv">
+
+  <table cellpadding="3" cellspacing="1">
+    <tbody>
+    <tr>
+      <th>管理员ID</th>
+      <th>管理员姓名</th>
+      <th>手机号</th>
+      <th>权限</th>
+      <th>状态</th>
+      <th>创建时间</th>
+      <th>操作</th>
+    </tr>
+    <tbody id="list">
+    {volist name="list" id="v"}
+        <tr id="{$v.id}">
+      <td class="first-cell">{$v.id}</td>
+      <td>{$v.username}</td>
+      <td align="center" >{$v.tel|substr=0,3}****{$v.tel|substr=7,11}</td> 
+    {eq name="$v.state" value="1"}    <!-- 权限 {$v.state}-->
+      <td align="center">普通管理员</td>
+    {else/}
+      <td align="center">超级管理员</td>
+    {/eq}
+      </td>    
+    {eq name="$v.statc" value="0"}
+      <td align="center">停用</td>
+    {else/}
+      <td align="center">启用</td>
+    {/eq}
+      <td align="center">{$v.create_time}</td>
+      <td align="center">
+          <input type="button" value="审核通过" class="statc" valu="1">  |
+        <input type="button" value="停用" class="stop" valu="0"> |
+        <a href="javascript:;" onclick="listTable.remove(1, '你确认要删除选定的商品品牌吗？')" title="编辑">移除</a>   |    <a href="" class="password">重置密码</a> 
+      </td>
+    </tr>
+    {/volist}
+    </tbody>
+    <!--start，这些都是显示代码，没有格式化，开发时会删除 -->
+       
+        
+  <!--end，这些都是显示代码，没有格式化，开发时会删除 -->
+    <tr>
+    <td align="right" nowrap="true" colspan="8">
+            <div id="turn-page">
+      总计  <span id="totalRecords">11</span>
+        个记录分为 <span id="totalPages">2</span>
+        页当前第 <span id="pageCurrent">1</span>
+        页，每页 <input type="text" size="3" id="pageSize" value="10" onkeypress="return listTable.changePageSize(event)">
+        <span id="page-link">
+          <div class="page">
+          {$list|raw}
+          </div>
+          <select id="gotoPage" onchange="listTable.gotoPage(this.value)">
+            <option value="1">1</option><option value="2">2</option>          </select>
+        </span>
+      </div>
+      </td>
+    </tr>
+  </tbody></table>
+
+<!-- end brand list -->
+</div>
+</form>
+<div id="footer">
+  版权所有 &copy; 2006-2013 软工教育 - 高级PHP - </div>
+</div>
+</body>
+</html>
+<script src="/static/jq.js"></script>
+<script>
+  $(document).on("click",".statc,.stop",function(){     //-------------------------------------停用，启用
+      // var a=1;
+      var a=$(this).attr("valu");
+      // alert(a);
+      var _this=$(this);
+      var id=$(this).parent().parent().attr('id');
+      // var statc=$(this).parent().prev().prev().html("启用");
+      $.ajax({
+        url:"{:url('upda')}",
+        data:{id:id,statc:a},
+        success:function(){
+            if(a==1){
+              _this.parent().prev().prev().html("启用");
+            }else{
+              _this.parent().prev().prev().html("停用");
+            }
+        }
+
+      })
+  })
+                         //---------------------------------------------------分页
+  $(document).on("click",".page a",function(){
+     event.preventDefault();
+      // console.log($(this));
+     var url=$(this).attr("href");
+     $.ajax({
+      url:url,
+      dataType:"json",
+      success:function(res){
+        $("#list").empty();
+        $.each(res.data,function(i,v){
+            var tr=$("<tr id="+v.id+"></tr>");
+            tr.append("<td>"+v.id+"</td>");
+            tr.append("<td>"+v.username+"</td>");
+            tr.append("{:<td align='center' >{$v.tel|substr=0,3}****{$v.tel|substr=7,11}</td>} ");
+            if(v.state==1){
+              tr.append("<td align='center'>普通管理员</td>");
+            }else{
+              tr.append("<td align='center'>超级管理员</td>");
+            }
+            if(v.statc==0){
+              tr.append('<td>停用</td>');
+            }else{
+              tr.append('<td>启用</td>');
+            }
+            tr.append("<td align='center'>"+v.create_time+"</td>");
+            tr.append('<td align="center"><input type="button" value="审核通过" class="statc" valu="1">  |<input type="button" value="停用" class="stop" valu="0"> |<a href="javascript:;" onclick="listTable.remove(1, \'你确认要删除选定的商品品牌吗？\')" title="编辑">移除</a>   |    <a href="" class="password">重置密码</a> </td>');
+            $("#list").append(tr);
+        })
+        $(".page").html(res.page);
+      }
+     })
+    
+  })                       
+                          //------------------------------------------------------密码重置
+    $(document).on("click",".password",function(){
+      event.preventDefault();
+      // alert(1);
+      var password="000000";
+      var id=$(this).parent().parent().attr('id');
+      var url="{:url('upda')}";
+      // alert(id);
+      $.ajax({
+        url:url,
+        data:{password:password,id:id},
+        success:function(res){
+                alert("密码重置成功");
+        }
+      })
+    })
+    
+</script>

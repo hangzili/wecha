@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<style>
+		ul li 
+		{
+			display:inline;
+		}
+	</style>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form>
+		<input type="text" name="nname">
+		<input type="submit" value="搜索" id="sou">
+	</form>
+	<table border="1">
+		<tr>
+			<td>ID</td>
+			<td>新闻作者</td>
+			<td>新闻标题</td>
+			<td>新闻简介</td>
+			<td>添加时间</td>
+		</tr>
+		<tbody id="list">
+	{volist name="list" id="v"}
+		<tr>
+			<td>{$v.nid}</td>
+			<td>{$v.nname}</td>
+			<td>{$v.ntitle}</td>
+			<td>{$v.ntext}</td>
+			<td>{$v.create_time}</td>
+		</tr>
+	{/volist}
+	</tbody>
+	</table>
+	<div id="page">
+	{$list|raw}
+	</div>
+</body>
+</html>
+<script src="/static/jq.js"></script>
+<script>
+	//-------------------------------------------------搜索
+	$(document).on("click","#sou",function(){
+		event.preventDefault();
+		var nname=$("[name='nname']").val();
+		$.ajax({
+			url:"{:url('News/list')}",
+			type:'get',
+			data:{nname:nname},
+			dataType:'json',
+			success:function(res){
+				
+			}
+		})
+	})
+	//--------------------------------------------------分页
+	$(document).on("click","#page a",function(){
+		event.preventDefault();
+		var url=$(this).attr("href");
+		$.ajax({
+			url:url,
+			dataType:'json',
+			success:function(res){
+				$("#list").empty();
+				$.each(res.data,function(k,v){
+					var tr=$("<tr></tr>");
+					tr.append("<td>"+v.nid+"</td>");
+					tr.append("<td>"+v.nname+"</td>");
+					tr.append("<td>"+v.ntitle+"</td>");
+					tr.append("<td>"+v.ntext+"</td>");
+					tr.append("<td>"+v.create_time+"</td>");
+					$("#list").append(tr);
+				})
+				$("#page").html(res.page);
+			}
+		})
+	})
+</script>

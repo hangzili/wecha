@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<table border="1" bgcolor="yellow">
+		<tr>
+			<td>ID</td>
+			<td>姓名</td>
+			<td>年龄</td>
+			<td>电话</td>
+			<td>性别</td>
+			<!-- <td>图片</td> -->
+			<td>操作</td>
+		</tr>
+	{volist name="list" id="v"}
+		<tr>
+			<td>{$v.id}</td>
+			<td>{$v.u_name}</td>
+			<td>{$v.age}</td>
+			<td>{$v.tel}</td>
+			<td>{eq name="v.sex" value="0"}女 {else/} 男 {/eq}</td>
+			<!-- <td><img src="{$v.image}" alt=""></td> -->
+			<td>
+				<a href="{:url('del?id='.$v['id'])}">删除</a>
+			</td>
+		</tr>
+		{/volist}
+		
+	</table>
+{$list|raw}
+</body>
+</html>

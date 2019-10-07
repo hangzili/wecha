@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="" onsubmit="return XXOO()">
+		用户名：<input type="text" name="username" id="userid" onblur="user()">
+				<span id="id1">*</span><br>
+		密码：	<input type="password" name="pwds" id="pwdid" onblur="pwd()">
+				<span id="id2">*</span><br>
+		邮箱：	<input type="email" name="emaa" id="ema" onblur="emab()">
+				<span id="id3">*</span><br>
+
+				<input type="submit" value="提交">
+		<script type="text/javascript">
+		function user()
+		{
+			var userida=document.getElementsByTagName('input')[0].value;
+			var ida1=document.getElementById('id1');
+			var a1=/^[a-d]\w{3,4}$/;
+			if(!a1.test(userida)){
+				ida1.innerHTML='{{{(>_<)}}}';
+					return false;
+			}else {
+				ida1.innerHTML='(ฅʕ•̫͡•ʔฅ)';
+					return true;
+			}
+		}
+		function pwd()
+		{
+			var pwdida=document.getElementsByTagName('input')[1].value;
+			var id2=document.getElementById('id2');
+			var a2=/^\d[6-8]{6,8}$/;
+			if(!a2.test(pwdida)){
+				id2.innerHTML='{{{(>_<)}}}';
+					return false;
+			}else{
+				id2.innerHTML='ฅʕ•̫͡•ʔฅ';
+					return true;
+			}
+		}
+		function emab()
+		{
+			var emaa=document.getElementsByTagName('input')[2].value;
+			var ida3=document.getElementById('id3');
+			var a3=/^[a-d]\w{5}@(\.)html|naa/;
+			if(a3.test(emaa)){
+				ida3.innerHTML='{{{(>_<)}}}';
+					return false;
+			}else {
+				ida3.innerHTML='ฅʕ•̫͡•ʔฅ';
+					return true;
+			}
+		}
+		function xxoo()
+		{
+			var aaa=user();
+			var bbb=pwd();
+			var ccc=emad();
+			return  aaa&&bbb&&ccc;
+		}
+		</script>
+	</form>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<table border="1">
+		<tr>
+			<td>姓名</td>
+			<td>性别</td>
+			<td>时间</td>
+			<td>操作</td>
+		</tr>
+	{volist name="list" id="v"}
+		<tr>
+			<td>{$v.username}</td>
+			<td>{$v.sex}</td>
+			<td>{$v.create_time}</td>
+			<td>
+				<a href="{:url('del?id='.$v['id'])}">删除</a>
+				<a href="{:url('upd?id='.$v['id'])}">修改</a>
+			</td>
+		</tr>
+	{/volist}
+	</table>
+</body>
+</html>

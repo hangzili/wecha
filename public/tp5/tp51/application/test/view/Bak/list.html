@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<table border="1">
+		<tr>
+			<td>姓名</td>
+			<td>图片</td>
+			<td>时间</td>
+			<td>操作</td>
+		</tr>
+	{volist name="list" id='v'}
+		<tr>
+			<td>{$v.username}</td>
+			<td><img src="{$v.image}" alt=""></td>
+			<td>{$v.create_time}</td>
+			<td></td>
+		</tr>
+		{/volist}
+	</table>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<div class="main-content">
+                    <div class="breadcrumbs" id="breadcrumbs">
+                        <script type="text/javascript">
+                            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+                        </script>
+
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="icon-home home-icon"></i>
+                                <a href="#">首页</a>
+                            </li>
+                            <li class="active">电商系统控制台</li>
+                            <li class="active">分类管理</li>
+                            <li class="active">分类设置</li>
+                            <li class="active">分类列表</li>
+                        </ul><!-- .breadcrumb -->
+                    </div>
+
+                    <div class="page-content">
+                            <div class="row">
+                            
+
+                                    <div class="col-xs-12">
+
+                                    
+                                    
+                <div class="table-responsive">
+                    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                
+                                <th>分类编号</th>
+                                <th>分类名称</th>                            
+                                <th>是否显示</th>
+                                <th>在导航栏</th>                                
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                                {foreach $info as $k=>$v}
+                            <tr style="display: none" parent_id="{$v.parent_id}" cate_id="{$v.cate_id}">
+                                
+
+                                <td>
+                                    
+                                    {:str_repeat("***",$v.level-1)}<a href="javescript:;" class="flag">+</a>{$v.cate_id}
+                                </td>
+                                <td>{:str_repeat("***",$v.level-1)}{$v.cate_name}</td>
+                                <td>
+                                        {if $v['cate_show']==1}
+                                            展示
+                                        {else/}
+                                            隐藏
+                                            {/if}
+                                    </td>
+                                    <td>
+                                            {if $v['cate_nav_show']==1}
+                                                是
+                                            {else/}
+                                                否
+                                                {/if}
+                                        </td>                               
+                                <td>
+                                <button class="btn">编辑</button>
+                                <button class="btn btn-danger del">删除</button>
+                                </td>
+
+                            </tr>
+                                {/foreach}                             
+
+                            
+                        </tbody>
+                    </table>
+                </div><!-- /.table-responsive -->
+            </div><!-- /span -->
+        </div><!-- /row -->
+
+    </div><!-- /.page-content -->
+</div><!-- /.main-content -->
+<script>    
+    $(function(){
+        // 还有个bug 递归收缩没做
+        // 页面加载，把parent_id 为0 的展示
+        $('tr[parent_id="0"]').show();
+        //给类位flag的一个点击事件
+        $(document).on('click','.flag',function(){
+             var _this = $(this);
+             var flag = _this.text();//使用text获取超链接的符号  val是在表单中使用
+             // 获取当前'行'分类的id
+             var cate_id = _this.parents("tr").attr('cate_id');
+             if(flag=="+"){
+                 if($("tr[parent_id = '"+cate_id+"']").length>0){
+                    _this.text('-');//+号变为-  这个if判断是最小的层级分类最后显示+                
+                $("tr[parent_id = '"+cate_id+"']").show(); 
+                 }
+             }else{
+                _this.text('+');//-号变为+号
+               trHide(cate_id)
+                
+             }
+        })
+        // 自定义函数 层级分类可以正常收缩 
+        function trHide(cate_id){
+            var _child=$("tr[parent_id = '"+cate_id+"']");
+            _child.hide();
+            _child.each(function(index){
+                $(this).find("a[class='flag']").text('+');//这行代码表示收缩后把自己分类前面变成+号，可以试着注释看效果
+               var c_id= $(this).attr('cate_id');//循环的每一个对象
+               trHide(c_id);
+            })
+            // $("tr[parent_id = '"+cate_id+"']").hide();//把子类tr隐藏
+        }
+    })
+
+    $(function(){
+        $(document).on('click','.del',function(){
+
+            var _this = $(this);
+           var cate_id = _this.parents("tr").attr("cate_id");
+           if(window.confirm('是否要删除')){
+               location.href="{:url('Category/delete')}?cate_id="+cate_id;
+           }
+        })
+        return false;
+    })
+</script>

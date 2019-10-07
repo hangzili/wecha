@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	用户名：<input type="text" name="username" photo="1769*****84"><span class="span_user">*</span><br>
+	年龄：<div id="age">20</div><br>
+	<input type="button" value="提交" id="sub">
+	
+</body>
+</html>
+<script src="jq.js"></script>
+<script>
+	$("#sub").on("click",function(){
+		$username=$("[name='username']").val();
+		console.log($username);
+		$photo=$("[name='username']").attr("photo");
+		console.log($photo);
+		$age=$("#age").text();
+		console.log($age);
+		if($username==""){
+			$(".span_user").text("同户名不能为空").css("color","red");
+		}else{
+			$(".span_user").text("*").css("color","black");
+		}
+	})
+
+	// $("#sub").on("click",function(){
+	// 	var $username=$("[name='username']").val();
+	// 	var $photo=$("[name='username']").attr("photo");
+	// 	var $age=$("#age").text();
+	// 	console.log($username);
+	// 	console.log($photo);
+	// 	console.log($age);
+	// 	if($username==""){
+	// 		$(".span_user").text("同户名不能位空").css("color","red");
+	// 	}else{
+	// 		$(".span_user").text("*").css("color","black");
+	// 	}
+
+	// })
+
+</script>

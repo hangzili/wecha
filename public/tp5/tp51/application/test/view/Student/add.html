@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body><form action="{:url('add_do')}" method="post" enctype="multipart/form-data">
+	姓名<input type="text" name="username"><br>
+	性别<input type="radio" name="sex" value="0">女
+		<input type="radio" name="sex" value="1">男<br>
+	爱好<input type="checkbox" name="hobby" value="0">唱歌
+		<input type="checkbox" name="hobby" value="1">跳舞
+		<input type="checkbox" name="hobby" value="2">打球<br>
+	年龄<input type="text" name="age"><br>
+	图片<input type="file" name="image">
+	<input type="submit" value="提交">
+</form>
+</body>
+</html>

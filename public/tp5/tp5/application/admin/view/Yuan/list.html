@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        姓名：<input type="text" name="y_name" class="y_name">
+        手机号：<input type="text" name="y_tel" class="y_tel">
+        <select name="b_id" id="">
+            <option value="">部门</option>
+            <option value="1" class="b_id">经济部</option>
+            <option value="2" class="b_id">宣传部</option>
+        </select>
+        <select name="z_id" id="">
+            <option value="">职业</option>
+            <option value="1" class="z_id">主管</option>
+            <option value="2" class="z_id">副管</option>
+        </select>
+        <input type="button" value="搜索" class="sou">
+    </form>
+    <table>
+        <tr>
+            <td><input type="checkbox" class="quan"> ID</td>
+            <td>姓名</td>
+            <td>手机号</td>
+            <td>职位</td>
+            <td>部门</td>
+            <td>是否在职</td>
+            <td>操作</td>
+        </tr>
+        <tbody id="list">
+    {volist name="list" id="v"}
+        <tr id="{$v.y_id}">
+            <td><input type="checkbox" name="check[]" value="{$v.y_id}">{$v.y_id}</td>
+            <td>{$v.y_name}</td>
+            <td>{$v.y_tel}</td>
+            <td>{$v.z_name}</td>
+            <td>{$v.b_name}</td>
+            {eq name="$v.y_is" value="0"}
+                <td class="is" value="1">是</td>
+            {else/}
+                <td class="is" value="0">否</td>
+            {/eq}
+            <td></td>
+        </tr>
+    {/volist}
+</tbody>
+    </table>
+    <input type="button" value="批量删除" class="del">
+</body>
+</html>
+<script src="/static/jq.js"></script>
+<script>
+    $(document).on("click",".sou",function(){
+        // alert(1);
+        var z_id=$(".z_id:checked").attr("value");
+        var b_id=$(".b_id:checked").attr("value");
+        var y_name=$(".y_name").val();
+        // var y_tel=$(".y_tel").val();
+        // console.log(y_name);
+        $.ajax({
+            url:"{:url('list')}",
+            data:{z_id:z_id,b_id:b_id,y_name:y_name},
+            dataType:'json',
+            success:function(res){
+                // console.log(res);
+                $("#list").empty();
+                $.each(res,function(k,v) {
+                    var tr=$("<tr></tr>");
+                    tr.append('<td><input type="checkbox" name="check[]" value='+v.y_id+'>'+v.y_id+'</td>');
+                    tr.append('<td>'+v.y_name+'</td>');
+                    tr.append('<td>'+v.y_tel+'</td>');
+                    tr.append('<td>'+v.z_name+'</td>');
+                    tr.append('<td>'+v.b_name+'</td>');
+                    // if(v.y_is==0){
+                    //     <td class="is" value="1">是</td>
+                    // }else{
+                    //     <td class="is" value="0">否</td>
+                    // }
+                    $("#list").append(tr);
+                })
+            }
+        })
+    })
+    //-----------             ----------------------------批量删除
+    $(document).on("click",".del",function(){
+        var url="{:url('del')}";
+        var obj=$('[name="check[]"]:checked');
+        // console.log(obj);
+        var arr= new Array();
+        $.each(obj,function(){
+            var id=$(this).val();
+            // console.log(id);
+            arr.push(id);
+        })
+        $.ajax({
+            url:url,
+            data:{arr:arr},
+            dataType:'json',
+            success:function(res){
+				
+            }
+        })
+    })
+    //--------------            -----------------------------批量选择
+    $(document).on("click",".quan",function(){
+        var is=$(".quan").prop('checked');
+        // alert(is);
+        if(is==true){
+            $('[name="check[]"]').prop('checked',true);
+        }else{
+            $('[name="check[]"]').prop('checked',false);
+        }
+    })
+    
+    //----------             ---------------------------即点即改
+    $(document).on("click",".is",function(){
+        var is=$(this).attr("value");
+        var id=$(this).parent().attr('id');
+        var url="{:url('upd')}";
+        var _this=$(this);
+        
+        $.ajax({
+            url:url,
+            data:{y_id:id,y_is:is},
+            success:function(res){
+                if(is==1){
+                    _this.html("否").attr("value","0");
+                }else{
+                    _this.html("是").attr("value","1");
+                }
+            }
+        })
+    })
+</script>

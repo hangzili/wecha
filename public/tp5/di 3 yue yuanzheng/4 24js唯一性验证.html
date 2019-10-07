@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	用户 <input type="text" name="aa" id="ipt" onblur='xx()'>
+	<span id="sp">*</span>
+	<script type="text/javascript">
+	function xx()
+	{
+	var ipts=document.getElementById('ipt').value;
+	var spp=document.getElementById('sp');
+	//console.log(ipts);
+	var x=new XMLHttpRequest();
+	//console.log(spp);
+	x.onreadystatechange=function()
+	{
+		if(x.readyState==4 && x.status==200)
+		{
+
+				 if(x.responseText=='ok')
+				 {
+				 	spp.innerHTML = '用户名已存在';
+				 	return false;
+				 }else {
+				 	spp.innerHTML='√';
+				 	return true;
+				 }
+			}
+		}
+		x.open('get','2.php?pp='+ipts,true);
+		x.send();
+	}
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="{:url('add_do')}" method="post" class="ti">
+	车名：<input type="text" name="namee"><br>
+	颜色：<input type="radio" value="0" name="color">红
+		  <input type="radio" value="1" name="color">白<br>
+	<input type="button" value="添加" class="ca">
+	</form>
+</body>
+</html>
+<script stc="/static/jq.js"></script>
+<script>
+	$(document).on("click",".ca",function(){
+		var url=$('.ti').attr("action");
+		var data=$(".ti").serialize();
+		// alert(data);
+		$.ajax({
+			url:url,
+			type:'post',
+			dataType:'json',
+			data:{data:data},
+			success:function(res){
+				alert(res.asd);
+			}
+		})
+	})
+</script>

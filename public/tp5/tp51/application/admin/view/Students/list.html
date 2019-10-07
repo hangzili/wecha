@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form>
+		<input type="text" name="names" value="{$names}">
+		<input type="submit" value="搜索" class="sou">
+	</form>
+	<table border="1">
+		<tr>
+			<td><input type="checkbox" class="del">ID</td>
+			<td>姓名</td>
+			<td>年龄</td>
+			<td>性别</td>
+			<td></td>
+		</tr>
+		<tbody id="list">
+		{volist name="list" id="v"}
+		<tr  id={$v.id}>
+			<td><input type="checkbox" name="checkboxes[]">{$v.id}</td>
+			<td class="names">
+				<input type="text" style=display:none />
+				<span>{$v.names}</span>
+			</td>
+			<td>{$v.age}</td>
+			{eq name='$v.sex' value="0"}
+			<td class="is" value="1">女</td>
+			{else/}
+			<td class="is" value="0">男</td>
+			{/eq}
+			<td></td>
+		</tr>
+		{/volist}
+		</tbody>
+	</table>
+	<div id="page">
+	{$page|raw}
+	</div>
+	<input type="button" value="批量删除" class="pi">
+</body>
+</html>
+<script src="/static/jq.js"></script>
+<script>
+	$(document).on('click','.del',function(){
+		var del=$(this).prop('checked');
+		if(del){
+			$('[name="checkboxes[]"]').prop('checked',del);
+		}else{
+			$('[name="checkboxes[]"]').prop('checked',del);
+		}
+	})
+	$(document).on("click",".pi",function(){
+		var obj=$('[name="checkboxes[]"]:checked');
+		var arr=new Array();
+		$.each(obj,function(){
+		    var id=$(this).val();
+		    arr.push(id);
+		});
+		var url="{:url('del')}";
+        $.ajax({
+            url:url,
+            data:{arr:arr},
+            dataType:'json',
+            success:function(res){
+				
+            }
+        })
+	})
+	 //                           姓名即点即改
+	$(document).on('click','.names',function(){
+		$(this).find('span').hide();
+		var names=$(this).find('span').text();
+		$(this).find('input').show();
+		// alert(names);
+
+		$(this).find('input').val(names);
+		// $(this).find('input').addClass('value',names);
+	})
+	$(document).on('blur','.names',function(){
+		$(this).find('span').show();
+		var names=$(this).find('input').val();
+		$(this).find('input').hide();
+		// alert(names);
+		$(this).find('span').text(names);
+		var id=$(this).parent().attr("id");
+		$.ajax({
+			url:"{:url('upda')}",
+			type:'get',
+			data:{id:id,names:names},
+			success:function(res){
+
+			}
+		})
+
+	})
+	//------------------------------------------------男女即点即改
+	$(document).on('click','.is',function(){
+		var is=$(this).attr('value');
+		var id=$(this).parent().attr('id');
+		var _this=$(this);
+		// _this.text(2);
+		$.ajax({
+			url:"{:url('upda')}",
+			type:'get',
+			// dataType:'json',
+			data:{id:id,sex:is},
+			success:function(res){
+				if(is==0){
+					_this.text("女").attr('value',1);
+				}else{
+					_this.text("男").attr('value',0);
+				}
+			}
+		})
+	})
+	$(document).on('click','.sou',function(){
+		event.preventDefault();
+		var names=$('[name="names"]').val();
+		var url="{:url('list')}";
+		$.ajax({
+			url:url,
+			data:{names:names},
+			dataType:'json',
+			success:function(res){
+				$("#list").empty();
+				$.each(res.data,function(k,v){
+					var tr=$("<tr></tr>");
+					tr.append("<td>"+v.id+"</td>");
+					tr.append("<td>"+v.names+"</td>");
+					tr.append("<td>"+v.age+"</td>");
+					if(v.sex==0){
+						tr.append("<td>女</td>");
+					}else{
+						tr.append("<td>男</td>");
+					}
+					$("#list").append(tr);
+				})
+				$("#page").html(res.page);
+			}
+		})
+	})
+	//------------------------------------------------------分页
+	$(document).on('click','#page a',function(){
+		event.preventDefault();
+		var url=$(this).attr('href');
+		$.ajax({
+			url:url,
+			dataType:'json',
+			success:function(res){
+				$("#list").empty();
+				$.each(res.data,function(k,v){
+					var tr=$("<tr></tr>");
+					tr.append("<td>"+v.id+"</td>");
+					tr.append("<td>"+v.names+"</td>");
+					tr.append("<td>"+v.age+"</td>");
+					if(v.sex==0){
+						tr.append("<td>女</td>");
+					}else{
+						tr.append("<td>男</td>");
+					}
+					$("#list").append(tr);
+				})
+				$("#page").html(res.page);
+			}
+		})
+	})
+</script>

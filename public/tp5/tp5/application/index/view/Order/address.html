@@ -1,0 +1,75 @@
+  <form action="{:url('order/saveaddress')}" method="post">
+    <input type="hidden" name="goods_id" value="{$goods_id}">
+            <div class="mem_tit">
+            	<a href="#"><img src="/static/index/images/add_ad.gif" /></a>
+            </div>
+            <table border="0" class="add_tab" style="width:930px;"  cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="135" align="right">配送地区</td>
+                <td colspan="3" style="font-family:'宋体';">
+                	<select class="jj" name="country" style="background-color:#f6f6f6;">
+                      <option value="0" selected="selected">请选择...</option>
+                      {volist name="list" id="v"}
+                      <option value="{$v.region_id}">{$v.region_name}</option>
+                      {/volist}
+                    </select>
+                	 <select class="jj" name="province">
+                      <option value="0" selected="selected">请选择...</option>
+                    </select>
+                    <select class="jj" name="city">
+                      <option value="0" selected="selected">请选择...</option>
+                    </select>
+                    <select class="jj" name="district">
+                      <option value="0" selected="selected">请选择...</option>
+                    </select>
+                    （必填）
+                </td>
+              </tr>
+              <tr>
+                <td align="right">收货人姓名</td>
+                <td style="font-family:'宋体';"><input type="text" name="address_name" value="姓名" class="add_ipt" />（必填）</td>
+                <td align="right">电子邮箱</td>
+                <td style="font-family:'宋体';"><input type="text" name="email" value="12345678@qq.com" class="add_ipt" />（必填）</td>
+              </tr>
+              <tr>
+                <td align="right">详细地址</td>
+                <td style="font-family:'宋体';"><input type="text" name="address" value="世外桃源" class="add_ipt" />（必填）</td>
+                <td align="right">邮政编码</td>
+                <td style="font-family:'宋体';"><input type="text" name="zipcode" value="610000" class="add_ipt" /></td>
+              </tr>
+              <tr>
+                <td align="right">手机</td>
+                <td style="font-family:'宋体';"><input type="text" name="mobile" value="1361234587" class="add_ipt" />（必填）</td>
+                <td align="right">电话</td>
+                <td style="font-family:'宋体';"><input type="text" name="tel" value="028-12345678" class="add_ipt" /></td>
+              </tr>
+              <tr>
+                <td align="right">标志建筑</td>
+                <td style="font-family:'宋体';"><input type="text" name="sign_building" value="世外桃源大酒店" class="add_ipt" /></td>
+                <td align="right">最佳送货时间</td>
+                <td style="font-family:'宋体';"><input type="text" name="best_time" value="" class="add_ipt" /></td>
+              </tr>
+            </table>
+           	<p align="center">
+              <input type="submit" value="添加地址">
+             <!-- <a href="#" class="add_b">添加地址</a> -->
+            </p> 
+        </div>
+    </div>
+    </form>
+    <script src="/static/jq.js"></script>
+    <script>
+      $('select').change(function(){
+        var region_id=$(this).val();
+        var _this=$(this);
+        var str="<option value='0'>请选择...</option>";
+        $.post("{:url('Address/getsonAddress')}",{region_id:region_id},function(msg){
+          // console.log(msg);
+          $.each(msg,function(i,val){
+          str += '<option value='+val.region_id+'>'+val.region_name+'</option>'
+        });
+          // console.log(str);
+          _this.next().html(str);
+        },'json')
+      })
+    </script>

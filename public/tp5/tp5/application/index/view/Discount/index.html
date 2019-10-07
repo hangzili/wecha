@@ -1,0 +1,40 @@
+
+  <table width="100%" cellspacing="1" cellpadding="2">
+        <tr>
+            <th>优惠券张数</th>
+            <th>优惠券金额</th>
+            <th>商品分类</th>
+            <th>优惠条件</th>
+            <th>操作</th>
+        </tr>
+    {volist name="list" id="v"}
+    <tr align="center">
+      <td>{$v.d_number}</td>
+      <td>{$v.d_money}</td>
+      <td>{$v.cat_name}</td>
+      <td>{$v.d_where}</td>
+            <td align="center" class="get">
+              <button class="conbth" id="{$v.d_id}">领取优惠券</button>
+            </td>
+        </tr>
+    {/volist}
+</tbody>
+  </table>
+  <script src="/static/jq.js"></script>
+  <script>
+      $('.conbth').click(function(){
+          var id=$(this).attr('id');
+          if(!id){
+            return;
+          }
+          $.post("{:url('Discount/getto')}",{id:id},function(msg){
+
+            if(msg.asda=='0001'){
+              // alert(1);
+              alert(msg.asd);
+              location.href="{:url('login/login')}";return;
+            }
+            alert(msg);
+          },'json')
+      })
+  </script>

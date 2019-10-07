@@ -1,0 +1,31 @@
+<div class="content mar_20">
+    <img width="1200" height="110" src="/static/index/images/mban_1.jpg">
+</div>    
+<div class="i_t mar_10" cat_id="{$top_name.cat_id}">
+        <span class="floor_num">{$floor_num}F</span>
+        <span class="fl">{$top_name.cat_name}</span>                
+        <span class="i_mores fr">
+            {volist name="second_cat" id="v"}
+            <a href="#">{$v.cat_name}&nbsp; &nbsp;</a>
+            {/volist}
+        </span>
+    </div>
+    <div class="content">
+
+        <div class="fresh_mid">
+            <ul>
+
+                {volist name="goods" id="v"}
+                <li>
+                    <div class="name"><a href="{:url('goodss/index',['id'=>$v.goods_id])}">{$v.goods_name}</a></div>
+                    <div class="price">
+                        <font>￥<span><a href="{:url('goodss/index',['id'=>$v.goods_id])}">{$v.shop_price}</a></span></font> &nbsp;
+                    </div>
+                    <div class="img"><a href="{:url('goodss/index',['id'=>$v.goods_id])}"><img src="{$v.goods_img}" width="185" height="155" /></a></div>
+                </li>
+                {/volist}
+                                                                                
+            </ul>
+        </div>
+
+    </div> 

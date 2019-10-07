@@ -1,0 +1,64 @@
+
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
+    <div class="padding border-bottom">
+      <ul class="search" style="padding-left:10px;">
+        <li> <a class="button border-main icon-plus-square-o" href="add.html"> 添加内容</a> </li>
+        <li>搜索：</li>
+        <form action="" method="get">
+          <li>
+            <select name="cid" class="input" style="width:200px; line-height:17px;" onchange="changesearch()">
+               <option value="">请选择分类</option>
+              {volist name="cate" id="v"}
+              <option value="{$v.id}">{$v.title}</option>
+              {/volist}
+            </select>
+          </li>
+        </if>
+        
+        <li>
+          <input type="text" placeholder="请输入搜索关键字" name="a_title" class="input" style="width:250px; line-height:17px;display:inline-block" />
+          <input type="submit" class="button border-main icon-search" value="搜索">
+        </li>
+      </ul>
+    </div></form>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="100" style="text-align:left; padding-left:20px;">ID</th>
+        <th>图片</th>
+        <th>名称</th>
+        <th>分类</th>
+        <th>标签</th>
+        <th width="10%">更新时间</th>
+        <th width="310">操作</th>
+      </tr>
+      <volist name="list" id="vo">
+
+      {volist name="list" id='v'}
+
+        <tr>
+          <td style="text-align:left; padding-left:20px;"><input type="checkbox" name="id[]" value="" />
+          {$v.id}</td>
+          
+          <td width="10%"><img src="{$v['image']}" alt="" width="70" height="50" /></td>
+          <td>{$v.a_man}</td>
+          <td><font color="#00CC99">{$v.title}</font></td>
+          <td>{$v.tag_ids}</td>
+          <td>{$v.create_time}</td>
+          <td><div class="button-group"> 
+            <a class="button border-main" href="{:url('upd?id='.$v['id'])}"><span class="icon-edit"></span> 修改</a> 
+            <a class="button border-red" href="{:url('del?id='.$v.id)}"><span class="icon-trash-o"></span> 删除</a> 
+
+            
+          </div></td>
+        </tr>
+   		{/volist} 
+     
+
+      <tr>
+        <td colspan="8"><div class="pagelist"> 
+          {$list|raw}
+        </td>
+      </tr>
+    </table>
+  </div>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="{:url('add_do')}" method="post" enctype="multipart/form-data">
+		姓名：<input type="text" name="name"><br>
+		是否人类：<input type="radio" name="is" value="0">是
+				<input type="radio" name="is" value="1">否<br>
+		图片：<input type="file" value="文件上传" name="img"><br>
+		<input type="submit" value="提交">
+	</form>
+</body>
+</html>

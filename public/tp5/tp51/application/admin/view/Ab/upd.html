@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="{:url('upd_do')}" method="post">
+		<input type="hidden" name="id" value="{$info.id}">
+	姓名<input type="text" name="username" value="{$info.username}"><br>
+	性别<input type="radio" name="sex" value="0" {eq name="info.sex" value="女"}checked{/eq}>女
+		<input type="radio" name="sex" value="1" {eq name="info.sex" value="男"}checked{/eq}>男<br>
+		<input type="submit" value="修改">
+	</form>
+</body>
+</html>

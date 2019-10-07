@@ -1,0 +1,42 @@
+  <style type="text/css">
+    ul li {
+      display:inline;
+    }
+  </style>
+  <div class="panel admin-panel">
+  <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
+  <div class="padding border-bottom">
+    <button type="button" class="button border-yellow" onclick="window.location.href='#add'"><span class="icon-plus-square-o"></span> 添加分类</button>
+  </div>
+  <table class="table table-hover text-center">
+    <tr>
+      <th width="5%">ID</th>
+      <th width="15%">用户名</th>
+      <th width="10%">密码</th>
+      <th width="10%">添加时间</th>
+      <th width="10%">操作</th>
+    </tr>
+    <tbody class="list">
+   {volist name="list" id="v"}
+   
+    <tr>
+      <td>{$v['id']}</td>
+      <td>{$v['username']}</td>
+      <td>{$v['userpwd']}</td>
+      <td>{$v['create_time']|date='Y-m-d'}</td>
+      <td>
+      <div class="button-group"> 
+      <a class="button border-main" href="{:url('upd?id='.$v['id'])}"><span class="icon-edit"></span> 修改</a> 
+      <a class="button border-red" href="{:url('del?id='.$v['id'])}" ><span class="icon-trash-o"></span> 删除</a> 
+      </div>
+      </td>
+    </tr>
+  
+    {/volist}
+    </tbody>
+    </table>
+
+    <div id="page">
+    {$list|raw}
+    </div>
+    

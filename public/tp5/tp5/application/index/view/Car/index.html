@@ -1,0 +1,228 @@
+
+<!--End Menu End--> 
+<div class="i_bg">  
+    <div class="content mar_20">
+    	<img src="/static/index/images/img1.jpg" />        
+    </div>
+    
+    <!--Begin 第一步：查看购物车 Begin -->
+    <div class="content mar_20">
+    	<table border="0" class="car_tab" style="width:1200px; margin-bottom:50px;" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="car_th" width="140">
+              全选<input type="checkbox" class="r_rada" >
+              反选<input type="checkbox" class="r_radb"></td>
+            <td class="car_th" width="490">商品名称</td>
+            <td class="car_th" width="150">购买数量</td>
+            <td class="car_th" width="130">小计</td>
+            <td class="car_th" width="150">操作</td>
+          </tr>
+            {if $dat}
+            {php} $i=0; {/php}
+          {foreach $dat as $k=>$v}
+          <tr {if $i%2==0} class="car_tr"{/if}>
+            <td align="center" class="one">
+              <input type="checkbox" value="{$v.goods_id}" name="checkboxes"></td>
+            <td>
+            	<div class="c_s_img"><img src="{$v.goods_img}" width="73" height="73" /></div>
+                {$v.goods_name}
+            </td>
+            <td align="center">
+            	<div class="c_num">
+                    <input type="button" value="" onclick="jianUpdate1(jq(this),{$v.goods_id});" class="car_btn_1" />
+                	<input type="text" goods_id="{$v.goods_id}" value="{$v.by_number}" name="" class="car_ipt" />  
+                    <input type="button" value="" onclick="addUpdate1(jq(this),{$v.goods_id});" class="car_btn_2" />
+                </div>
+            </td>
+            <td align="center" style="color:#ff4e00;">￥{$v.shop_price}</td>
+            <td align="center">
+              <a onclick="del({$v.goods_id})">删除</a>&nbsp; &nbsp;
+              <a href="javascript:addcollect({$v.goods_id})">加入收藏</a></td>
+          </tr>
+          <!-- {$i++} -->
+            {/foreach}
+            {/if}
+            <tr height="70">
+            <td colspan="6" style="font-family:'Microsoft YaHei'; border-bottom:0;">
+                <label class="r_rad">
+                  <input type="button" value="清空购物车" class="clear"/></label>
+                  <label class="r_txt">
+                </label>
+                <span class="fr">商品总价：<b style="font-size:22px; color:#ff4e00;">￥<span class="total">0.00</span></b></span>
+            </td>
+          </tr>
+          <script>
+            //加入收藏
+            function addcollect(goods_id){
+              // alert(goods_id);
+              jQuery.post("{:url('Car/collect')}",{goods_id:goods_id},function(msg){
+                // alert(msg);
+                // 未登录，请先登陆
+                if(msg.cdoe=='00001'){
+                  if(confirm(msg.msg)){
+                    location.href="{:url('login/login')}";
+                  }
+                }
+                //已经收藏，勿重复收藏
+                  alert(msg.msg);
+
+              },'json')
+            }
+            //全选
+            jQuery('.r_rada').click(function(){
+              jQuery('.one :checkbox').prop('checked',jQuery(this).prop('checked'));
+              getMoney();
+            })
+            //反选
+            jQuery('.r_radb').click(function(){
+              jQuery('.one :checkbox').prop('checked',function(i,v){
+                return !v;
+              });
+              getMoney();
+            })
+            //单点
+             jQuery('.one :checkbox').click(function(){
+              getMoney();
+            })
+
+            function getMoney()
+            {
+              var vals=new Array();
+              jQuery('.one [type=checkbox]:checked').each(function(i,v){
+                vals.push(jQuery(this).val());
+              });
+              // alert(vals);
+              jQuery.post("{:url('Car/getMoney')}",{goods_id:vals},function(msg){
+                jQuery('.total').text(msg);
+              })
+            }
+            //加减
+            jQuery('.car_ipt').blur(function(){
+                var text=parseInt(jQuery(this).val());
+                var goods_id=jQuery(this).attr('goods_id');
+                // alert(goods_number);
+                if(isNaN(text)){
+                    text=1;
+                }
+                if(text<=1){
+                    text=1;
+                }
+                text =checkNumber(goods_id,text);
+                jQuery(this).val(text); 
+                getMoney();
+            })
+            //单删
+            //ShowDiv('MyDiv','fade')
+            function del(goods_id)
+            {
+              // alert(goods_id);
+              if(!goods_id){
+                alert('选择删除的商品');return;
+              }
+              jQuery('#delgoods_id').val(goods_id);
+              ShowDiv('MyDiv','fade');
+            }
+            
+          </script>
+
+          <tr valign="top" height="150">
+          	<td colspan="6" align="right">
+            	<a href="/"><img src="/static/index/images/buy1.gif" />
+              </a>&nbsp; &nbsp; 
+              <a href="javascript:void(0)" onclick="confirmOrder()"><img src="/static/index/images/buy2.gif" /></a>
+            </td>
+          </tr>
+        </table>
+        
+    </div>
+	<!--End 第一步：查看购物车 End--> 
+  <script>
+    //确认结算
+    function confirmOrder()
+    {
+      var goods_id=new Array();
+      var money=jQuery(".total").html();
+      // alert(money);
+      jQuery('.one [type=checkbox]:checked').each(function(i,v){
+        goods_id.push(jQuery(this).val());
+      });
+      if(!goods_id.length){
+        alert("请选择结算商品");return;
+      }
+      jQuery.post("{:url('order/confirmOrder')}",{goods_id:goods_id},function(msg){
+          var url="{:url('order/index')}?ids="+goods_id;
+          if(msg.code=='0001'){
+            location.href="{:url('Login/login')}";
+          }else{
+            // if(money>300){
+            //   alert('赠送'+money+'积分');
+            // }
+            location.href=url;
+          }
+
+      },'json')
+      //积分
+      if(money>300){
+        
+        jQuery.post("{:url('Car/member')}",{money:money},function(msg){
+                alert('赠送'+money+'积分');
+              })
+      }
+
+    }
+  </script>
+    
+    
+    <!--Begin 弹出层-删除商品 Begin-->
+    <div id="fade" class="black_overlay"></div>
+    <div id="MyDiv" class="white_content">             
+        <div class="white_d">
+            <div class="notice_t">
+                <span class="fr" style="margin-top:10px; cursor:pointer;" onclick="CloseDiv('MyDiv','fade')"><img src="/static/index/images/close.gif" /></span>
+            </div>
+            <div class="notice_c">
+           		<input type="hidden" id="delgoods_id">
+                <table border="0" align="center" style="font-size:16px;" cellspacing="0" cellpadding="0">
+                  <tr valign="top">
+                    <td>您确定要把该商品移除购物车吗？</td>
+                  </tr>
+                  <tr height="50" valign="bottom">
+                    <td>
+                      <a href="javascript:void(0)" class="b_sure">确定</a>
+                      <a href="javescript:void(0)" class="b_buy">取消</a>
+                    </td>
+                  </tr>
+                </table>
+                    
+            </div>
+        </div>
+    </div>    
+    <!--End 弹出层-删除商品 End-->
+    
+    
+    <!--Begin Footer Begin -->
+    <script>
+      //确认删除
+      jQuery('.b_sure').click(function(){
+              var delgoods_id=jQuery('#delgoods_id').val();
+              jQuery.post("{:url('Car/delete')}",{delgoods_id:delgoods_id},function(msg){
+                window.location.reload();
+                // alert(msg.msg);
+                // alert(msg);
+              },'json')
+            })
+      //清空购物车
+      jQuery('.clear').click(function(){
+          var vals=new Array();
+          jQuery('.one [type=checkbox]:checked').each(function(i,v){
+            vals.push(jQuery(this).val());
+          });
+          // alert(vals.length);
+          if(!vals.length){
+            alert('选择删除的商品');return;
+          }
+          jQuery('#delgoods_id').val(vals);
+          ShowDiv('MyDiv','fade');
+      })
+    </script>
+    

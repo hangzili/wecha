@@ -1,0 +1,64 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		.price{
+			color:red;
+		}
+	</style>
+</head>
+<body>
+	商品名称: <input type="text" name="goods_name"><span class='span_name'>*</span>
+	<br>
+	商品价钱: <div class='price' cate_id='1' id="pricea">33</div>
+	<br>
+	<input type="button" value='提交' id='sub'>
+</body>
+</html>
+<script src="jq.js"></script>
+<script type="text/javascript">
+	//理论：
+	//写出jq四种基础选择器
+		//  类选择器  ID选择器   属性选择器  标签选择器
+	//写出jq所学的操作DOM节点的方法 
+		//text val attr  css
+	//SQL测试
+	//用户表 id  name  age
+	//写出
+	//增删改查SQL
+		//insert into 表名（'name','age'）value 值
+		//delete * from 表名 where 条件
+		//update 表名 set 字段=新值 where 条件
+		//select * from 表名 where 田间
+	//根据名字进行搜索
+		//select * from 表名 where name like '%东西%'
+	//根据年龄进行从小到大排序
+		//select * from 表名 order by age desc
+	//搜索姓张的用户 并且根据年龄从大到小排序 取出前三个
+		//select * from 表名 where name like '%张%' order by age desc limit 3
+
+	//技能需求 
+	//点击按钮时
+	 $("#sub").on("click",function(){
+	 	//获取商品名称,商品价钱，分类标识（cate_id） 打印到console控制台中
+	 	var $goods_name=$("[name='goods_name']").val();
+	 	var $price=$("#pricea").html();
+	 	var $cate_id=$("#pricea").attr("cate_id");
+	 	console.log($goods_name);
+	 	console.log($price);
+	 	console.log($cate_id);
+	 	//移除商品价钱颜色
+	 	$(".price").removeClass();
+	 	//判断商品名称是否填写，为空输出错误他提示到span标签中 并改变span颜色
+	 	if($goods_name==""){
+	 		$(".span_name").text("商品名不能为空").css("color","red");
+	 	}else{
+	 		$(".span_name").text("*").css("color","black");
+	 	}
+	 })
+	
+	 
+	
+	
+</script>

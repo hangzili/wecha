@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body><form action="{:url('add_do')}" method="post" enctype="multipart/form-data">
+	标题：<input type="text" name="title"><br>
+	分类：<select name="cid">
+		{volist name="list" id="v"}
+			<option>{$v.c_name}</option>
+		{/volist}
+		</select><br>
+	作者：<input type="text" name="content"><br>
+	内容：<input type="text" name="author"><br>
+	图片：<input type="file" name="image"><br>
+	<input type="submit" value="添加">
+</form>
+</body>
+</html>

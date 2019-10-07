@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	用户：<input type="text" name='username' id='user' onfocus='fu()'>
+	密码<input type="password" name="pwd" id='pwd' onblur='b1()'>
+
+	<!-- onfocus 获取焦点事件  onblur 失去焦点事件 -->
+	<script type="text/javascript">
+
+			function fu()
+		{
+			alert('我是获取焦点事件');
+		}
+			function b1()
+			{
+				alert('失去焦点事件');
+			}
+	</script>
+
+
+
+
+	<form action="">
+		<input type="text" name="un" id='ipts' onblur='xxoo()'>
+		<span id='sp'>*</span>
+	</form>
+	<script type="text/javascript">
+	function xxoo()
+	{
+		var sp=document.getElementById('sp');
+		var ipt=document.getElementById('ipts').value;
+		if(ipt==""){
+			sp.innerHTML='用户名';
+		}
+	}
+	</script>
+
+</body>
+</html>

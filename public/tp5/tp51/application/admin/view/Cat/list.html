@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="">
+		<input type="text" name="namee">
+		<input type="button" value="添加" class="del">
+	</form>
+	<table>
+		<tr>
+			<td><input type="checkbox" class="ps">ID</td>
+			<td>姓名</td>
+			<td>颜色</td>
+			<td>操作</td>
+		</tr>
+		<tbody id="list">
+		{volist name="list" id="v"}
+		<tr id={$v.id}>
+			<td><input type="checkbox" name="checkboxes[]">{$v.id}</td>
+			<td class="ming">
+				<span>{$v.namee}</span>
+				<input type="text" style=display:none>
+			</td>
+			{eq name="$v.color" value="0"}
+			<td class="is" value="1">红</td>
+			{else/}
+			<td class="is" value="0">黑</td>
+			{/eq}
+			<td></td>
+		</tr>
+		{/volist}
+		</tbody>
+	</table>
+	<div id="page">
+	{$page|raw}
+	</div>
+</body>
+</html>
+<script src="/static/jq.js"></script>
+<script>
+	$(document).on('click','.ps',function(){
+		var del=$(this).prop('checked');
+		if(del){
+			$('[name="checkboxes[]"]').prop('checked',del);
+		}else{
+			$('[name="checkboxes[]"]').prop('checked',del);
+		}
+	})
+	$(document).on('click','.del',function(){
+		var obj=$('[name="checkboxes[]"]:checked');
+		// console.log(obj);
+		var arr=new Array();
+		$.each(obj,function(){
+		    var id=$(this).val();
+		    arr.push(id);
+		})
+		console.log(arr);
+	})
+	//姓名即点即改
+	$(document).on('click','.ming span',function(){
+		var mi=$(this).text();
+		// alert(mi);
+		$(this).hide();
+		$(this).next().show();
+		$(this).next().val(mi);
+	})
+	$(document).on('blur','.ming input',function(){
+		var mi=$(this).val();
+		$(this).hide();
+		$(this).prev().show();
+		$(this).prev().text(mi);
+		var id=$(this).parent().parent().attr('id');
+		$.ajax({
+			url:"{:url('upda')}",
+			data:{id:id,namee:mi},
+			success:function(res){
+				
+			}
+		})
+	})
+	//黑红即点即改
+	$(document).on("click",".is",function(){
+		var is=$(this).attr('value');
+		var id=$(this).parent().attr('id');
+		var _this=$(this)
+		$.ajax({
+			url:"{:url('upda')}",
+			data:{id:id,color:is},
+			success:function(res){
+				if(is==0){
+					_this.text('红').attr('value',1);
+				}else{
+					_this.text('黑').attr('value',0);
+				}
+			}
+		})
+	})
+	//搜索
+	$(document).on('click','.qwe',function(){
+		event.preventDefault();
+		var namee=$('[name="namee"]').val();
+		var url="{:url('list')}";
+		$.ajax({
+			url:url,
+			dataType:'json',
+			data:{namee:namee},
+			success:function(res){
+				$("#list").empty();
+				$.each(res.data,function(k,v){
+				    var tr=$("<tr></tr>");
+				    tr.append("<td>"+v.id+"</td>");
+				    tr.append("<td>"+v.namee+"</td>");
+				    if(v.color==0){
+				    	tr.append("<td>红</td>");
+				    }else{
+				    	tr.append("<td>黑</td>");
+				    }
+				    tr.append("<td>"+v.id+"</td>");
+				    $("#list").append(tr);
+				})
+				$("#page").html(res.page);
+			}
+		})
+	})
+	//分页
+	$(document).on('click','#page a',function(){
+		event.preventDefault();
+		var url=$(this).attr('href');
+		var namee=$('[name="namee"]').val();
+		$.ajax({
+			url:url,
+			dataType:'json',
+			data:{namee:namee},
+			success:function(res){
+				$("#list").empty();
+				$.each(res.data,function(k,v){
+				    var tr=$("<tr></tr>");
+				    tr.append("<td>"+v.id+"</td>");
+				    tr.append("<td>"+v.namee+"</td>");
+				    if(v.color==0){
+				    	tr.append("<td>红</td>");
+				    }else{
+				    	tr.append("<td>黑</td>");
+				    }
+				    tr.append("<td>"+v.id+"</td>");
+				    $("#list").append(tr);
+				})
+				$("#page").html(res.page);
+			}
+		})
+	})
+</script>

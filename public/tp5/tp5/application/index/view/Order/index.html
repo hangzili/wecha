@@ -1,0 +1,190 @@
+
+<!--End Menu End--> 
+<div class="i_bg">  
+    <div class="content mar_20">
+        <img src="/static/index/images/img2.jpg" />        
+    </div>
+    
+    <!--Begin 第二步：确认订单信息 Begin -->
+    <div class="content mar_20">
+      <form action="{:url('Order/Order')}" method="post">
+        <input type="hidden" name="goods_id" value="{$goods_id}" id="goods_id">
+        <div class="two_bg">
+            <div class="two_t">
+                <span class="fr"><a href="{:url('car/index')}">修改</a></span>商品列表
+            </div>
+            <table border="0" class="car_tab" style="width:1110px;" cellspacing="0" cellpadding="0">
+              <tr>
+                <td class="car_th" width="550">商品名称</td>
+                <td class="car_th" width="140">属性</td>
+                <td class="car_th" width="150">购买数量</td>
+                <td class="car_th" width="130">小计</td>
+                <td class="car_th" width="140">返还积分</td>
+              </tr>
+              {volist name="goods" id="v"}
+              <tr>
+                <td>
+                    <div class="c_s_img" ><img src="{$v.goods_img}" width="73" height="73" /></div>
+                    {$v.goods_name}
+                </td>
+                <td align="center">颜色：灰色</td>
+                <td align="center">{$v.by_number}</td>
+                <td align="center" style="color:#ff4e00;">￥{$v.shop_price}</td>
+                <td align="center">26R</td>
+              </tr>
+              {/volist}
+              <tr>
+                <td colspan="5" align="right" style="font-family:'Microsoft YaHei';">
+                    商品总价：￥{$money} ； 返还积分 56R  
+                </td>
+              </tr>
+            </table>
+            
+            <div class="two_t">
+                <span class="fr"><a href="{:url('address/index')}">修改</a></span>收货人信息
+            </div>
+            <table border="0" class="peo_tab" style="width:1110px;" cellspacing="0" cellpadding="0">
+              
+                {volist name="user_address" id="v"}
+                <tr>
+                <td conspan="4"><input type="radio" name="address_id" value="{$v.address_id}">{$v.country} {$v.province} {$v.city} {$v.district} {$v.address} {$v.address_name} (收)  {$v.mobile}</td>
+                </tr>
+                {/volist}
+              
+            </table>
+
+            
+            <div class="two_t">
+                配送方式
+            </div>
+            <table border="0" class="car_tab" style="width:1110px;" cellspacing="0" cellpadding="0">
+              <tr>
+                <td class="car_th" width="80"></td>
+                <td class="car_th" width="200">名称</td>
+                <td class="car_th" width="370">订购描述</td>
+                <td class="car_th" width="150">费用</td>
+                <td class="car_th" width="135">免费额度</td>
+                <td class="car_th" width="175">保价费用</td>
+              </tr>
+              <tr>
+                <td align="center"><input type="checkbox" name="shipping_id" value="1" /></td>
+                <td align="center" style="font-size:14px;"><b>申通快递</b></td>
+                <td>江、浙、沪地区首重为15元/KG，其他地区18元/KG，续重均为5-6元/KG， 云南地区为8元</td>
+                <td align="center">￥15.00</td>
+                <td align="center">￥0.00</td>
+                <td align="center">不支持保价</td>
+              </tr>
+              <tr>
+                <td align="center"><input type="checkbox" name="shipping_id" value="2" /></td>
+                <td align="center" style="font-size:14px;"><b>城际快递</b></td>
+                <td>运费固定</td>
+                <td align="center">￥15.00</td>
+                <td align="center">￥0.00</td>
+                <td align="center">不支持保价</td>
+              </tr>
+              <tr>
+                <td align="center"><input type="checkbox" name="shipping_id" value="3"  /></td>
+                <td align="center" style="font-size:14px;"><b>邮局平邮</b></td>
+                <td>运费固定</td>
+                <td align="center">￥15.00</td>
+                <td align="center">￥0.00</td>
+                <td align="center">不支持保价</td>
+              </tr>
+              <tr>
+                <td colspan="6">
+                    <span class="fr"><label class="r_rad"><input type="checkbox" name="baojia" /></label><label class="r_txt">配送是否需要保价</label></span>
+                </td>
+              </tr>
+            </table> 
+            
+            <div class="two_t">
+                支付方式
+            </div>
+            <ul class="pay">
+              <input id="pay_id" type="hidden" value="4" name="pay_id">
+                <li class="checked" value="1">余额支付<div class="ch_img"></div></li>
+                <li value="2">银行亏款/转账<div class="ch_img"></div></li>
+                <li value="3">货到付款<div class="ch_img"></div></li>
+                <li value="4">支付宝<div class="ch_img"></div></li>
+            </ul>
+            
+           
+            
+           
+            
+            <div class="two_t">
+                其他信息
+            </div>
+            <table border="0" class="car_tab" style="width:1110px;" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="145" align="right" style="padding-right:0;"><b style="font-size:14px;">使用红包：</b></td>
+                <td>
+                    <span class="fl" style="margin-left:50px; margin-right:10px;">选择已有红包</span>
+                    <select class="jj" name="bonse">
+                      <option value="0" selected="selected">请选择</option>
+                      <option value="1">50元</option>
+                      <option value="2">30元</option>
+                      <option value="3">20元</option>
+                      <option value="4">10元</option>
+                    </select>
+                    <span class="fl" style="margin-left:50px; margin-right:10px;">或者输入红包序列号</span>
+                    <span class="fl"><input type="text" value="" class="c_ipt" style="width:220px;" />
+                    <span class="fr" style="margin-left:10px;"><input type="submit" value="验证红包" class="btn_tj" /></span>
+                </td>
+              </tr>
+              <tr valign="top">
+                <td align="right" style="padding-right:0;"><b style="font-size:14px;">订单附言：</b></td>
+                <td style="padding-left:0;"><textarea name="postscript" class="add_txt" style="width:860px; height:50px;"></textarea></td>
+              </tr>
+             
+            </table>
+            
+            <table border="0" style="width:900px; margin-top:20px;" cellspacing="0" cellpadding="0">
+              <!-- <tr>
+                <td align="right">
+                    商品总价: <font color="#ff4e00">￥1815.00</font>  + 配送费用: <font color="#ff4e00">￥15.00</font>
+                </td>
+              </tr> -->
+              <tr height="70">
+                <td align="right">
+                    <b style="font-size:14px;">应付款金额：<span style="font-size:22px; color:#ff4e00;">￥{$money}</span></b>
+                </td>
+              </tr>
+              <tr height="70">
+                <td align="right"><a href="javascript:void(0)" onclick="submitorder()"><img src="/static/index/images/btn_sure.gif" /></a></td>
+              </tr>
+            </table>
+
+            
+            
+        </div>
+      </form>
+    </div>
+    <!--End 第二步：确认订单信息 End-->
+    
+    
+    <!--Begin Footer Begin -->
+<!--[if IE 6]>
+<script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</html>
+<script src="/static/jq.js"></script>
+ <script>
+    function submitorder(){
+        var address_id=$("input[name='address_id']:checked").val();
+        if(isNaN(address_id)){
+          alert('收货地址不能为空');return;
+        }
+         var address_id=$("input[name='shipping_id']:checked").val();
+        if(isNaN(address_id)){
+          alert('配送方式不能为空');return;
+        }
+      $('form').submit();
+    }
+    $(".pay li").click(function(){
+        $(this).addClass('checked').siblings().removeClass('checked');
+        var pay_id=$(this).val();
+        // alert(pay_id);
+        $('#pay_id').val(pay_id);
+    })
+ </script> 

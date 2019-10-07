@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="">
+		用户名<input type="text" name="username" id='nid' onblur='names()'><span id='naid'>*</span><br>
+		密码<input type="text" name="pwd" id='pid' onblur='pwde()'><span in='paid'>*</span><br>
+		<input type="submit" value="添加">
+	</form>
+	<script type="text/javascript">
+	function names()
+	{
+		var nids=document.getElementById('nid').value;
+		var naids=document.getElementById('naid');
+		if(nids==""){
+			naids.innerHTML='(╯‵□′)╯炸弹！•••*～●';
+		}else {
+			naids.innerHTML='ฅʕ•̫͡•ʔฅ';
+		}
+	}
+	function pwde()
+	{
+		var pids=document.getElementById('pid').value;
+		var paids=document.getElementById('paid');
+		if(pids==""){
+			paids.innerHTML='(╯‵□′)╯炸弹！•••*～●';
+		}else {
+			paids.innerHTML='ฅʕ•̫͡•ʔฅ';
+		}
+	}
+	</script>
+</body>
+</html>

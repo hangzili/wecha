@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><!-- <base href="/static/admin/" /> -->
+<title>SHOP 管理中心 - 角色分类 </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/static/admin/styles/general.css" rel="stylesheet" type="text/css" />
+<link href="/static/admin/styles/main.css" rel="stylesheet" type="text/css" />
+<link href="/static/admin/page.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<h1>
+<span class="action-span"><a href="{:url('add')}">添加角色</a></span>
+<span class="action-span1"><a href="index.php?act=main">SHOP 管理中心</a> </span><span id="search_id" class="action-span1"> - 角色分类 </span>
+<div style="clear:both"></div>
+</h1>
+
+<form method="post" action="" name="listForm">
+<!-- start ad position list -->
+	<div class="list-div" id="listDiv">
+	<table width="100%" cellspacing="1" cellpadding="2" id="list-table">
+		<tbody>
+		<tr>
+			<td>角色名</td>
+			<td>角色描述</td>
+			<td>操作</td>
+		</tr>
+		<!-- <tbody id="list"> -->
+		{volist name="list" id="v"}
+		<tr>
+			<td>{$v.r_name}</td>
+			<td>{$v.r_conter}</td>
+			<td>
+				<a href="{:url('del?id='.$v['r_id'])}">删除</a>
+				<a href="{:url('upd?id='.$v['r_id'])}">修改</a>
+			</td>
+		</tr>
+		{/volist}
+		<!-- </tbody> -->
+	</table>
+	<!-- <div id="page"> -->
+	{$page|raw}
+	<!-- </div> -->
+</tbody>
+</div>
+</form>
+
+
+<div id="footer">
+	版权所有 &copy; 2006-2013 软工教育 - 高级PHP - </div>
+</div>
+
+</body>
+</html>
+
+
+
+<script src="/static/jq.js"></script>
+<script>
+	$(document).on('click','#page a',function(){
+		event.preventDefault();
+		var url=$(this).attr('href');
+		$.ajax({
+			url:url,
+			dataType:'json',
+			success:function(res){
+				$("#list").empty();
+				$.each(res.data,function(k,v) {
+				    var tr=$("<tr></tr>");
+				    tr.append("<td>"+v.r_name+"</td>");
+				    tr.append("<td>"+v.r_conter+"</td>");
+				    tr.append("<td><a class='del' href='{:url('del')}?id="+v.r_id+"'>删除</a></td>");
+				    $("#list").append(tr);
+				})
+			}
+		})
+	})
+</script>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<table border="1" width="200">
+		<tr>
+			<td><input type="checkbox" class="slass">ID</td>
+			<td>姓名</td>
+			<td>是否</td>
+			<td>操作</td>
+		</tr>
+		<tbody id="list">
+		{volist name="list" id="v"}
+		<tr id="{$v.id}">
+			<td><input type="checkbox" name="checkboxes[]">{$v.id}</td>
+			<td>{$v.name}</td>
+			{eq name="$v.is" value="0"}
+			<td value="1" class="is">是</td>
+			{else/}
+			<td value="0" class="is">否</td>
+			{/eq}
+			<td>没有</td>
+		</tr>
+		{/volist}
+		</tbody>
+	</table>
+	<div id="page">
+	{$list|raw}
+	</div>
+</body>
+</html>
+<script src="/static/jq.js"></script>
+<script>
+	$(document).on("click",".slass",function(){
+		var is=$(this).prop("checked");
+		// alert(is);
+		if(static){
+            $('[name="checkboxes[]"]').prop('checked',true);
+        }else{
+            $('[name="checkboxes[]"]').prop('checked',false); 
+        }
+	})
+	$(document).on("click","#page a",function(){
+		event.preventDefault();
+		var url=$(this).attr('href');
+		$.ajax({
+			url:url,
+			dataType:'json',
+			success:function(res){
+				$("#list").empty();
+				$.each(res.data,function(k,v) {
+				    var tr=$("<tr id="+v.id+"></tr>");
+				    tr.append("<td>"+v.id+"</td>");
+				    tr.append("<td>"+v.name+"</td>");
+				    tr.append('{eq name="'+v.is+'" value="0"}<td value="1" class="is">是</td>{else/}<td value="0" class="is">否</td>{/eq}');
+				    tr.append("<td>"+v.id+"</td>");
+				    $("#list").append(tr);
+				})
+			}
+		})
+	})
+	$(document).on("click",".is",function(){
+		var is=$(this).attr('value');
+		var id=$(this).parent().attr('id');
+		var url="{:url('upd')}";
+		var _this=$(this);
+		$.ajax({
+			url:url,
+			data:{id:id,is:is},
+			success:function(res){
+				if(is==0){
+					_this.text("是").attr("value",1);
+				}else{
+					_this.text("否").attr("value",0);
+				}
+			}
+		})
+	})
+</script>

@@ -1,0 +1,146 @@
+<!-- 左侧主体 -->
+{include file="public/left" /}
+<!-- 右侧 -->
+		<div class="m_right">
+            <p></p>
+            <div class="mem_tit">收货地址</div>
+      {volist name="address" id="v"}
+			<div class="address">
+            	<div class="a_close">
+                <a href="javascript:;" id="{$v.address_id}" class="del">
+                  <img src="__STATIC__/index/images/a_close.png" />
+                </a>
+              </div>
+            	<table border="0" class="add_t" align="center" style="width:98%; margin:10px auto;" cellspacing="0" cellpadding="0">
+                 
+                  <tr>
+                    <td align="right" width="80">收货人姓名：</td>
+                    <td>{$v.consignee}</td>
+                  </tr>
+                  <tr>
+                    <td align="right">配送区域：</td>
+                    <td>{$v.province} {$v.city} {$v.district}</td>
+                  </tr>
+                  <tr>
+                    <td align="right">详细地址：</td>
+                    <td>{$v.address}</td>
+                  </tr>
+                  <tr>
+                    <td align="right">手机：</td>
+                    <td>{$v.mobile}</td>
+                  </tr>
+                  <tr>
+                    <td align="right">电话：</td>
+                    <td>{$v.tel}</td>
+                  </tr>
+                  <tr>
+                    <td align="right">电子邮箱：</td>
+                    <td>{$v.zipcode}</td>
+                  </tr>
+                  <tr>
+                    <td align="right">标志建筑：</td>
+                    <td>{$v.sign_building}</td>
+                  </tr>
+                </table>
+				
+                <p align="right">
+                  {if($v.is_default==0)}
+                	<a href="#" style="color:#ff4e00;" class="setdefault" id="{$v.address_id}">设为默认</a>
+                  {else/}
+                  <span>默认地址</span>
+                  {/if}
+                  &nbsp; &nbsp; &nbsp; &nbsp; 
+                  <a href="#" style="color:#ff4e00;">编辑</a>&nbsp; &nbsp; &nbsp; &nbsp; 
+                </p>
+
+      </div>
+      {/volist}
+            <div class="mem_tit">
+            	<a href="#"><img src="__STATIC__/index/images/add_ad.gif" /></a>
+            </div>
+            <form action="addrestwo" method="post">
+            <table border="0" class="add_tab" style="width:930px;"  cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="135" align="right">配送地区</td>
+    <td colspan="3" style="font-family:'宋体';">
+      <select class="jj" name="province" style="background-color:#f6f6f6;">
+          <option value="0" selected="selected">请选择...</option>
+          {volist name="top" id="v"}
+          <option value="{$v.id}">{$v.name}</option>
+          {/volist}
+        </select>
+        <select class="jj" name="city">
+          <option value="" selected="selected">请选择...</option>
+        </select>
+        <select class="jj" name="district">
+          <option value="" selected="selected">请选择...</option>
+        </select>
+        （必填）
+    </td>
+  </tr>
+  <tr>
+    <td align="right">收货人姓名</td>
+    <td style="font-family:'宋体';"><input type="text" name="consignee" placeholder="姓名" class="add_ipt" />（必填）</td>
+    <td align="right">电子邮箱</td>
+    <td style="font-family:'宋体';"><input type="text" name="email" placeholder="12345678@qq.com" class="add_ipt" />（必填）</td>
+  </tr>
+  <tr>
+    <td align="right">详细地址</td>
+    <td style="font-family:'宋体';"><input type="text" name="address" placeholder="世外桃源" class="add_ipt" />（必填）</td>
+    <td align="right">邮政编码</td>
+    <td style="font-family:'宋体';"><input type="text" name="zipcode" placeholder="610000" class="add_ipt" /></td>
+  </tr>
+  <tr>
+    <td align="right">手机</td>
+    <td style="font-family:'宋体';"><input type="text" name="mobile" placeholder="1361234587" class="add_ipt" />（必填）</td>
+    <td align="right">电话</td>
+    <td style="font-family:'宋体';"><input type="text" name="tel" placeholder="028-12345678" class="add_ipt" /></td>
+  </tr>
+  <tr>
+    <td align="right">标志建筑</td>
+    <td style="font-family:'宋体';"><input type="text" name="sign_building" placeholder="世外桃源大酒店" class="add_ipt" /></td>
+    <td align="right">最佳送货时间</td>
+    <td style="font-family:'宋体';"><input type="text" name="best_time" placeholder="" class="add_ipt" /></td>
+  </tr>
+  <tr>
+    <td colspan="4" align="center"><input type="submit" value="添加地址"></td>
+  </tr>
+  </table>
+           	
+            </form>
+           
+
+            
+        </div>
+    </div>
+    <script>
+    $('select').change(function(){
+        var id=$(this).val();
+        var _this=$(this);
+        var str="<option value='0'>请选择...</option>";
+        $.post("{:url('Cart/getsonAddress')}",{id:id},function(msg){
+          $.each(msg,function(i,val){
+          str += '<option value='+val.id+'>'+val.name+'</option>';
+        });
+          _this.next().html(str);
+        },'json')
+    })
+    //设为默认
+    $('.setdefault').click(function(){
+        var id=$(this).attr('id');
+        var _this=$(this);
+        $.post("{:url('Address/setdefault')}",{address_id:id},function(res){
+          // alert(res);
+            //页面刷新
+            window.location.reload();
+        })
+    })
+    //删除
+    $('.del').click(function(){
+        var id=$(this).attr('id');
+        $.post("{:url('del')}",{address_id:id},function(res){
+          // window.location.reload();
+        })
+    })
+  </script>
+	

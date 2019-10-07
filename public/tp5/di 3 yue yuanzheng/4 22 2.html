@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="" method="post" onsubmit='return xxoo()'>
+		<table border="1">
+			<tr>
+				<td>用户名</td>
+				<td>
+					<input type="text" name="udername" id="ipts" onblur='pp()'>
+					<span id='sp1'>*</span>
+				</td>
+			</tr>
+			<tr>
+				<td>密码</td>
+				<td>
+					<input type="password" name='pwd' id='psd' onblur='ppd()'>
+					<span id='sq2'>*</span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" value="提交">
+				</td>
+			</tr>
+		</table>
+	</form>
+	<script type="text/javascript">
+		function pp()
+		{
+			var ipts=document.getElementById('ipts').value;
+			var sp1=document.getElementById('sp1');
+			if(ipts==""){
+				sp1.innerHTML='（o´・ェ・｀o）';
+				return false;
+			}else {
+				sp1.innerHTML = 'ฅʕ•̫͡•ʔฅ';
+				return true;
+			}
+		}
+
+		function ppd()
+		{
+			var psd=document.getElementById('psd').value;
+			var sq2=document.getElementById('sq2');
+			if(psd==""){
+				sq2.innerHTML='（o´・ェ・｀o）';
+				return false;
+			}else {
+				sq2.innerHTML = 'ฅʕ•̫͡•ʔฅ';
+				return true;
+			}
+		}
+		function xxoo()
+		{
+			var ip1=pp();
+			var sq2=ppd();
+			return ip1&&sq2;
+		}
+	</script>
+</body>
+</html>

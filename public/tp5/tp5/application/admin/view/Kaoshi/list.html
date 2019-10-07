@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<style>
+		ul li 
+		{
+			display:inline;
+		}
+	</style>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<table border="1">
+		<tr>
+			<td>标题</td>
+			<td>发表时间</td>
+			<td>管理操作</td>
+		</tr>
+		<tbody id="list">
+		{volist name="list" id="v"}
+		<tr id="{$v.id}">
+			<td>{$v.center}</td>
+			<td>{:date("Y-m-d H:i:s",$v['add_time'])}</td>
+			<td>
+				<a href="">前台</a>|| <a href="">修改</a> ||  <input type="button" class="dell" value="删除">
+			</td>
+		</tr>
+		{/volist}
+		</tbody>
+	</table>
+	{$page|raw}
+</body>
+</html>
+<script src="/static/jq.js"></script>
+<script>
+	$(document).on('click','.dell',function(){
+		var id=$(this).parent().parent().attr("id");
+		$.ajax({
+			url:"{:url('del')}",
+			data:{id:id},
+			dataType:'json',
+			success:function(res){
+				alert("删除成功");
+				$("#list").empty();
+				// console.log(res);
+				$.each(res.data,function(k,v){
+					var tr=$("<tr id="+v.id+"></tr>");
+					tr.append("<td>"+v.center+"</td>");
+					tr.append('<td>{:date("Y-m-d H:i:s",$v["add_time"])}</td>');
+					tr.append('<td><a href="">前台</a>|| <a href="">修改</a> ||  <input type="button" class="dell" value="删除"></td>');
+					$("#list").append(tr);
+				})
+				$(".page").html(res.page);
+			}
+		})
+	})
+</script>

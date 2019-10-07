@@ -1,0 +1,114 @@
+<div class="main-content">
+        <div class="breadcrumbs" id="breadcrumbs">
+            <script type="text/javascript">
+                try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+            </script>
+
+            <ul class="breadcrumb">
+                <li>
+                    <i class="icon-home home-icon"></i>
+                    <a href="#">首页</a>
+                </li>
+                <li class="active">电商系统控制台</li>
+                <li class="active">管理员管理</li>
+                <li class="active">管理员设置</li>
+                <li class="active">管理员修改</li>
+            </ul><!-- .breadcrumb -->
+        </div>
+
+        <div class="page-content">
+                <div class="row">
+                
+
+                        <div class="col-xs-12">
+                        
+<form  class="form-horizontal" action="{:url('update')}" method="post" name="theForm">
+        <input type="hidden" name="admin_id" value="{$list.admin_id}">
+<div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 管理员名称 </label>
+
+    <div class="col-sm-9">
+        <input type="text" name="admin_name" id="form-field-1" class="admin_name" placeholder="用户名4-12位字母数字" value="{$list.admin_name}" />
+    </div>
+</div>
+
+<div class="space-4"></div>
+
+<div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 密码 </label>
+
+    <div class="col-sm-9">
+        <input type="password" name="admin_pwd" id="form-field-2" class="pwd" placeholder="长度为4-12位的字母数字" value="{$list.admin_pwd}"  />
+    </div>
+</div>
+
+
+
+<div class="space-4"></div>
+
+<div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 电话 </label>
+
+    <div class="col-sm-9">
+        <input type="text" name="admin_tel"  class="tel" placeholder="请输入正确的手机号码格式" value="{$list.admin_tel}" />
+        </div>
+</div>
+
+<div class="form-group">
+<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 邮箱 </label>
+
+        <div class="col-sm-9">
+            <input type="text" name="admin_email"  class="email" placeholder="请输入正确邮箱格式"  value="{$list.admin_email}"/>
+            </div>
+</div>			
+
+
+<div class="clearfix form-actions">
+    <div class="col-md-offset-3 col-md-9">
+        <button class="btn btn-info" type="submit">
+            <i class="icon-ok bigger-110"></i>
+            修改
+        </button>
+
+        &nbsp; &nbsp; &nbsp;
+        <button class="btn" type="reset">
+            <i class="icon-undo bigger-110"></i>
+            重置
+        </button>
+    </div>
+</div>
+
+<div class="hr hr-24"></div>
+
+
+
+</form>
+                        </div><!-- /span -->
+                    </div><!-- /row -->
+
+        </div><!-- /.page-content -->
+    </div><!-- /.main-content -->
+<script>
+$(function(){
+    $(document).on('submit','#myform',function(){
+        return;
+        var data = $('#myform').serialize();//把data传给控制器serialize将用作提交的表单元素的值编译成字符串
+        // console.log(data);return;   post参数：地址，匿名函数
+        $.post(
+            "{:url('Admin/add_do')}",
+            
+            data,
+            function(res){
+                // console.log(res);
+                alert(res.font);
+                if(res.code==1){
+                    
+                    location.href="{:url('Admin/admin_list')}";
+                }
+            },
+            'json'
+        );
+        return false;
+    })
+})
+</script>

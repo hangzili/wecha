@@ -1,0 +1,273 @@
+<!-- 导航 -->
+{include file="public/nav" /} 
+<!-- 主体 -->
+    <!--End Menu End--> 
+    <div class="i_bg bg_color">
+        <div class="i_ban_bg">
+            <!--Begin Banner Begin-->
+            <div class="banner">    	
+                <div class="top_slide_wrap">
+                    <ul class="slide_box bxslider">
+                        <li><img src="__STATIC__/index/images/de2.jpg" width="740" height="401" /></li>
+                        <li><img src="__STATIC__/index/images/zsmc.jpg" width="740" height="401" /></li> 
+                        <li><img src="__STATIC__/index/images/deng.jpg" width="740" height="401" /></li> 
+                        <li><img src="__STATIC__/index/images/ban1.jpg" width="740" height="401" /></li> 
+                    </ul>	
+                    <div class="op_btns clearfix">
+                        <a href="#" class="op_btn op_prev"><span></span></a>
+                        <a href="#" class="op_btn op_next"><span></span></a>
+                    </div>        
+                </div>
+            </div>
+            <script type="text/javascript">
+            //var jq = jQuery.noConflict();
+            (function(){
+                $(".bxslider").bxSlider({
+                    auto:true,
+                    prevSelector:jq(".top_slide_wrap .op_prev")[0],nextSelector:jq(".top_slide_wrap .op_next")[0]
+                });
+            })();
+            </script>
+            <!--End Banner End-->
+            <div class="inews">
+                <div class="news_t">
+                    <span class="fr"><a href="#">更多 ></a></span>提示
+                </div>
+                <ul>
+                    <li><span>[ 特惠 ]</span><a href="{:url('Index/han')}">东边不亮</a></li>
+                    <li><span>[ 公告 ]</span><a href="{:url('Index/han')}">西边亮</a></li>
+                    <li><span>[ 特惠 ]</span><a href="{:url('Index/han')}">憨逼啥样</a></li>
+                    <li><span>[ 公告 ]</span><a href="{:url('Index/han')}">你啥样</a></li>
+                    <li><span>[ 公告 ]</span><a href="{:url('Index/han')}">👌</a></li>
+                </ul>
+                <div class="charge_t">
+                    话费充值<div class="ch_t_icon"></div>
+                </div>
+                <form>
+                <table border="0" style="width:205px; margin-top:10px;" cellspacing="0" cellpadding="0">
+                  <tr height="35">
+                    <td width="33">号码</td>
+                    <td><input type="text" value="" class="c_ipt" /></td>
+                  </tr>
+                  <tr height="35">
+                    <td>面值</td>
+                    <td>
+                        <select class="jj" name="city">
+                          <option value="0" selected="selected">100元</option>
+                          <option value="1">50元</option>
+                          <option value="2">30元</option>
+                          <option value="3">20元</option>
+                          <option value="4">10元</option>
+                        </select>
+                        <span style="color:#ff4e00; font-size:14px;">￥99.5</span>
+                    </td>
+                  </tr>
+                  <tr height="35">
+                    <td colspan="2"><input type="submit" value="立即充值" class="c_btn" /></td>
+                  </tr>
+                </table>
+                </form>
+            </div>
+        </div>
+    
+        <!--Begin 热门商品 Begin-->
+        <div class="i_t mar_10">
+            <span class="fl">热门商品</span>
+            <span class="i_mores fr"><a href="javascript:void(0)">更多</a></span>
+        </div>
+        <div class="like">  
+            <div id="featureContainer1">
+                <div id="feature1">
+                    <div id="block1">
+                        <div id="botton-scroll1" style="visibility: visible; overflow: hidden; position: relative; z-index: 2; left: 0px; width: 1200px;">
+                            <ul class="featureUL" style="margin: 0px; padding: 0px; position: relative; list-style-type: none; z-index: 1; width: 3600px; left: -2400px;">
+                                {volist name="host_goods" id="v"}
+                                <li class="featureBox" style="overflow: hidden; float: left; width: 238px; height: 228px;">
+                                    <div class="box">
+                                        <div class="h_icon"><img width="50" height="50" src="{$v.goods_img}">
+                                        </div>
+                                        <div class="imgbg">
+                                            <a href="{:url('goods/detail')}?goods_id={$v.goods_id}"><img width="160" height="136" src="{$v.goods_img}"></a>
+                                        </div>                                        
+                                        <div class="name">
+                                            <a href="javascript:void(0)">
+                                            <h2>德国进口</h2>
+                                            {$v.goods_name}
+                                            </a>
+                                        </div>
+                                        <div class="price">
+                                            <font>￥<span>{$v.goods_price}</span></font> &nbsp; 26R
+                                        </div>
+                                    </div>
+                                </li>
+                                {/volist}
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="javascript:void();" class="l_prev">Previous</a>
+                    <a href="javascript:void();" class="l_next">Next</a>
+                </div>
+            </div>
+        </div>    
+        <!--END 热门商品 END -->
+    
+        <!--Begin 限时特卖 Begin-->
+        
+        <div class="content mar_20">
+            <img src="__STATIC__/index/images/mban_1.jpg" width="1200" height="110" />
+        </div>
+        <div cate_id="{$info.topInfo.cate_id}">
+        <!--Begin 进口 生鲜 Begin-->
+        <div class="i_t mar_10">
+            
+            <span class="floor_num">
+                1F           </span>
+            <span class="fl">{$info.topInfo.cate_name}</span>  
+            {volist name="info['sonInfo']" id="v"}              
+            <span class="i_mores fr"> &nbsp; <a href="#">{$v.cate_name}</a>&nbsp;</span>
+            {/volist}
+        </div>
+        <div class="content">
+    
+            <div class="fresh_mid">
+                <ul>
+                    {volist name="info['goodsInfo']" id="v"}
+                    <li>
+                        <div class="name"><a href="{:url('goods/detail')}?goods_id={$v.goods_id}">{$v.goods_name}</a></div>
+                        <div class="price">
+                            <font>￥<span>{$v.goods_price}</span></font> &nbsp; 
+                        </div>
+                        <div class="img"><a href="{:url('goods/detail')}?goods_id={$v.goods_id}"><img src="{$v.goods_img}" width="150" height="155" /></a></div>
+                    </li>
+                    {/volist}
+                                                                                    
+                </ul>
+            </div>
+    
+        </div>    
+        <!--End 进口 生鲜 End-->
+        </div>
+        <center id="getMore"><a href="JavaScript:;" >点击加载更多</a></center>
+    
+     
+        <!--Begin 猜你喜欢 Begin-->
+        <div class="i_t mar_10">
+            <span class="fl">猜你喜欢</span>
+        </div>    
+        <div class="like">        	
+            <div id="featureContainer1">
+                <div id="feature1">
+                    <div id="block1">
+                        <div id="botton-scroll1">
+                            <ul class="featureUL">
+                                <li class="featureBox">
+                                    <div class="box">
+                                        <div class="imgbg">
+                                            <a href="#"><img src="__STATIC__/index/images/hot1.jpg" width="160" height="136" /></a>
+                                        </div>                                        
+                                        <div class="name">
+                                            <a href="#">
+                                            <h2>德国进口</h2>
+                                            德亚全脂纯牛奶200ml*48盒
+                                            </a>
+                                        </div>
+                                        <div class="price">
+                                            <font>￥<span>189</span></font> &nbsp; 26R
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="featureBox">
+                                    <div class="box">
+                                        <div class="imgbg">
+                                            <a href="#"><img src="__STATIC__/index/images/hot2.jpg" width="160" height="136" /></a>
+                                        </div>                                        
+                                        <div class="name">
+                                            <a href="#">
+                                            <h2>iphone 6S</h2>
+                                            Apple/苹果 iPhone 6s Plus公开版
+                                            </a>
+                                        </div>
+                                        <div class="price">
+                                            <font>￥<span>5288</span></font> &nbsp; 25R
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="featureBox">
+                                    <div class="box">
+                                        <div class="imgbg">
+                                            <a href="#"><img src="__STATIC__/index/images/hot3.jpg" width="160" height="136" /></a>
+                                        </div>                                        
+                                        <div class="name">
+                                            <a href="#">
+                                            <h2>倩碧特惠组合套装</h2>
+                                            倩碧补水组合套装8折促销
+                                            </a>
+                                        </div>
+                                        <div class="price">
+                                            <font>￥<span>368</span></font> &nbsp; 18R
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="featureBox">
+                                    <div class="box">
+                                        <div class="imgbg">
+                                            <a href="#"><img src="__STATIC__/index/images/hot4.jpg" width="160" height="136" /></a>
+                                        </div>                                        
+                                        <div class="name">
+                                            <a href="#">
+                                            <h2>品利特级橄榄油</h2>
+                                            750ml*4瓶装组合 西班牙原装进口
+                                            </a>
+                                        </div>
+                                        <div class="price">
+                                            <font>￥<span>280</span></font> &nbsp; 30R
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="featureBox">
+                                    <div class="box">
+                                        <div class="imgbg">
+                                            <a href="#"><img src="__STATIC__/index/images/hot4.jpg" width="160" height="136" /></a>
+                                        </div>                                        
+                                        <div class="name">
+                                            <a href="#">
+                                            <h2>品利特级橄榄油</h2>
+                                            750ml*4瓶装组合 西班牙原装进口
+                                            </a>
+                                        </div>
+                                        <div class="price">
+                                            <font>￥<span>280</span></font> &nbsp; 30R
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a class="l_prev" href="javascript:void();">Previous</a>
+                    <a class="l_next" href="javascript:void();">Next</a>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!--End 猜你喜欢 End-->
+<script>
+$(function(){
+    $(document).on("click","#getMore",function(){
+        // alert(1111);
+        var _this = $(this);
+        var cate_id = _this.prev('div').attr('cate_id');//获取上一楼层的cate_id
+        // 拿楼层标识1Fde的纯文本 parseInt 将字符串转成整数
+        var floor_num =parseInt(_this.prev("div").find("span[class='floor_num']").text());
+
+        $.post(
+            "{:url('Index/getMoreFloor')}",
+            {cate_id:cate_id,floor_num:floor_num},
+            function(res){
+                // console.log(res);
+                _this.before(res);
+            }
+        );
+    })
+})
+</script>

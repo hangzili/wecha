@@ -1,0 +1,207 @@
+
+<!--End Menu End--> 
+<div class="i_bg">
+	<div class="postion">
+    	<span class="fl">全部 > 美妆个护 > 香水 > </span>
+        <span class="n_ch" style='display:none' id="brand_span">
+            <span class="fl">品牌：<font>香奈儿</font></span>
+            <a class="close" href="javascript:void(0)"><img src="/static/index/images/s_close.gif" /></a>
+        </span>
+        <span class="n_ch" style='display:none' id="price_span">
+            <span class="fl">价格：<font>香奈儿</font></span>
+            <a class="close" href="javascript:void(0)"><img src="/static/index/images/s_close.gif" /></a>
+        </span>
+    </div>
+    <!--Begin 筛选条件 Begin-->
+    <div class="content mar_10">
+    	<table border="0" class="choice" style="width:100%; font-family:'宋体'; margin:0 auto;" cellspacing="0" cellpadding="0">
+          <tr valign="top">
+            <td width="70">&nbsp; 品牌：</td>
+            <td class="td_a">
+                {volist name="brand" id="v"}
+                <a value="{$v.id}" sign="brand" href="javascript:void(0)" {if $brands==$v.id } class="now" {/if}>{$v.brand_name}</a>
+                {/volist}
+            </td>
+          </tr>
+          <tr valign="top">
+            <td>&nbsp; 价格：</td>                                                                                                       
+            <td class="td_a">
+                {volist name="arr" id="v"}
+                <a sign="price" href="javascript:void(0)" {if $prices==$v } class="now" {/if} value="{$v}">{$v}</a>
+                {/volist}
+            </td>
+          </tr> 
+                                             
+                                                                
+        </table>                                                                                 
+    </div>
+    <!--End 筛选条件 End-->
+    
+    <div class="content mar_20">
+    	<div class="l_history">
+        	<div class="his_t">
+            	<span class="fl">浏览历史</span>
+                <span class="fr"><a href="#">清空</a></span>
+            </div>
+        	<ul>
+                {volist name="history" id="v"}
+                <li>
+                    <div class="img"><a href="{:url('goodss/index',['id'=>$v.goods_id])}"><img src="{$v.goods_img}" width="185" height="162" /></a></div>
+                    <div class="name"><a href="{:url('goodss/index',['id'=>$v.goods_id])}">{$v.goods_name}</a></div>
+                    <div class="price">
+                        <font>￥<span><a href="{:url('goodss/index',['id'=>$v.goods_id])}">{$v.shop_price}</a></span></font> &nbsp; 18R
+                    </div>
+                </li>
+                {/volist}
+                <!-- {volist name="history" id="v"} -->
+            	
+                <!-- {/volist} -->
+        	</ul>
+        </div>
+        <div class="l_list">
+        	<div class="list_t">
+            	<span class="fl list_or">
+                	<a field="1" href="javascript:void(0)" {if $field==1} class="now" {/if}>
+                        <span class="fl">默认</span>
+                    </a>
+                    <a field="2" href="javascript:void(0)" {if $field==2} class="now" {/if}>
+                    	<span orderby="1" class="fl">库存</span>                        
+                        <span orderby="1" class="i_up">销量从低到高显示</span>
+                        <span orderby="2" class="i_down">销量从高到低显示</span>                                                     
+                    </a>
+                    <a field="3" href="javascript:void(0)" {if $field==3} class="now" {/if}>
+                    	<span orderby="1" class="fl">价格</span>                        
+                        <span orderby="1" class="i_up">价格从低到高显示</span>
+                        <span orderby="2" class="i_down">价格从高到低显示</span>     
+                    </a>
+                    <a field="4" href="javascript:void(0)" {if $field==4} class="now" {/if}>
+                        <span class="fl">新品</span>
+                    </a>
+                </span>
+                <span class="fr">共发现{$count}件</span>
+            </div>
+            <div class="list_c">
+            	
+                <ul class="cate_list">
+                    {volist name="goods" id="v"}
+                	<li>
+                    	<div class="img"><a href="{:url('goodss/index',['id'=>$v.goods_id])}"><img src="{$v.goods_img}" width="210" height="185" /></a></div>
+                        <div class="price">
+                            <font>￥<span><a href="{:url('goodss/index',['id'=>$v.goods_id])}">{$v.shop_price}</a></span></font> &nbsp; 26R
+                        </div>
+                        <div class="name"><a href="{:url('goodss/index',['id'=>$v.goods_id])}">{$v.goods_name}</a></div>
+                        <div class="carbg">
+                        	<a href="javascript:void(0)" class="ss"><span class="collect" goods_id="{$v.goods_id}">收藏</span></a>
+                            <a href="javascript:void(0)" class="j_car"><span class="addcar" goods_id="{$v.goods_id}" by_number="1">加入购物车</span></a>
+                            <!-- <a class="asscar" goods_id="{$v.goods_id}" by_number="1" href="" class="j_car">加入购物车</a> -->
+                        </div>
+                    </li>
+                   {/volist}
+                </ul>
+                
+                <div class="pages">
+                    {$goods|raw}
+                	<!-- <a href="#" class="p_pre">上一页</a><a href="#" class="cur">1</a><a href="#">2</a><a href="#">3</a>...<a href="#">20</a><a href="#" class="p_pre">下一页</a> -->
+                    
+                </div>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+    
+    <!--Begin Footer Begin -->
+             <script>
+                //加入收藏
+                jQuery('.collect').click(function(){
+                    var goods_id=jQuery(this).attr('goods_id');
+                    jQuery.post("{:url('lists/collect')}",{goods_id:goods_id},function(msg){
+                        // 未登录，请先登陆
+                        if(msg.cdoe=='00001'){
+                          if(confirm(msg.msg)){
+                            location.href="{:url('login/login')}";
+
+                          } 
+                          return;
+                        }
+                            //已经收藏，勿重复收藏
+                            alert(msg.msg);
+                    },'json')
+                })
+                //加入购物车
+                jQuery('.addcar').click(function(){
+                    var goods_id=jQuery(this).attr('goods_id');
+                    jQuery.post("{:url('lists/addCat')}",{goods_id:goods_id},function(msg){
+                        // alert(msg);
+                        if((msg.code)==1){
+                            alert(msg.msg);return; 
+                        }
+                        if((msg.code)==2){
+                            alert('添加购物车成功');
+                           location.href="{:url('car/index')}";
+                        }
+                    },'json')
+                    // alert(goods_id);
+                    // alert(2);
+                })
+                //点击默认
+                jQuery('.list_or span').click(function(){
+                    jQuery(this).parent().addClass('now').siblings().removeClass('now');
+                    var field=jQuery(this).parent().attr('field');
+                    var orderby=jQuery(this).attr('orderby');
+                    // alert(orderby);
+                    getSearch(field,orderby);
+                    // alert(field);
+                })
+                //开头经过
+                jQuery(function(){
+                    jQuery('.td_a > .now').each(function(i,k){
+                        var sign=jQuery(this).attr('sign');
+                        var text=jQuery(this).text();
+                        jQuery('#'+sign+'_span').show();
+                        jQuery('#'+sign+'_span').find('span').text(text);
+                        // getSearch();
+                    })
+                })
+                //搜素点击变色
+                jQuery('.td_a a').click(function(){
+                    jQuery(this).addClass('now').siblings().removeClass('now');
+                    var sign=jQuery(this).attr('sign');
+                    var text=jQuery(this).text();
+                    jQuery('#'+sign+'_span').show();
+                    jQuery('#'+sign+'_span').find('span').text(text);
+                    getSearch();
+                })
+                //点击 x
+                jQuery('.close').click(function(){
+                    var text=jQuery(this).parent().find('span').text();
+                    jQuery('.td_a > .now').each(function(i,k){
+                        if(jQuery(this).text()==text){
+                            jQuery(this).removeClass('now');
+                        }
+                        
+                    })
+                    jQuery(this).parent().hide();
+                    getSearch();
+                })
+                function getSearch(field=0,orderby=0){
+                    var str='';
+                    jQuery('.td_a > .now').each(function(i,k){
+                        var keyname=jQuery(this).attr('sign');
+                        var keyname_val=jQuery(this).attr('value');
+                        str += keyname+'='+keyname_val+'&';
+                        // alert(keyname_val);
+                    });
+                    // alert(field);
+                    if(field){
+                        str += 'field'+'='+field+'&';
+                    }
+                    if(orderby){
+                        str += 'orderby'+'='+orderby+'&';
+                    }
+                    // alert(str);
+                    location.href="{:url('lists/index',['cid'=>$id])}?"+str;
+                }
+          </script> 
+   

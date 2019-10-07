@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="{:url('add_do')}" method="post" class="form">
+	公告标题：<input type="text" name="namee"><span>*</span><br>
+	公告内容：<textarea name="center" id="" cols="30" rows="10"></textarea><br>
+	公告状态：<input type="radio" name="is" value="0">通过
+		     <input type="radio" name="is" value="1">待审核<br>
+		     <input type="button" value="添加" class="add">
+		     <input type="button" value="取消">
+	</form>
+</body>
+</html>
+<script src="/static/jq.js"></script>
+<script>
+	// $(document).on('blur','[name="namee"]',function(){
+	// 	var k=$(this).val();
+	// 	if(k==""){
+	// 		$('span').text('不能为空');
+	// 	}
+	// })
+	$(document).on('click','.add',function(){
+		var namee=$('[name="namee"]').val();
+		var url=$(".form").attr('action');
+		var data=$(".form").serialize();
+		$.ajax({
+			url:url,
+			data:data,
+			type:'post',
+			dataType:'json',
+			success:function(res){
+					alert(res.sad);
+			}
+		})
+	})
+</script>

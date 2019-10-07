@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<table border="1">
+		<tr>
+			<td>ID</td>
+			<td>标题</td>
+			<td>内容</td>
+		</tr>
+	<tbody id="list">
+		<tr>
+			<td>1</td>
+			<td>标题</td>
+			<td>内容</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>标题</td>
+			<td>内容</td>
+		</tr>
+	</tbody>
+	</table>
+	<div id="page">
+		<button>下一页</button>
+	</div>
+</body>
+</html>
+<script src="jq.js"></script>
+<script>
+	$("#page button").on("click",function(){
+		$.ajax({
+			url:'demo4.php',
+			type:'get',
+			dataType:'json',
+			success:function(res){
+				$("#list").empty();
+				$.each(res,function(k,v){
+					var tr=$("<tr></tr>");
+					tr.append("<td>"+v.n_id+"</td>");
+					tr.append("<td>"+v.n_title+"</td>");
+					tr.append("<td>"+v.n_content+"</td>");
+					$("#list").append(tr)
+				})
+			}
+		})
+	})
+</script>

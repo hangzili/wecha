@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		ul li {
+			display:inline;
+		}
+	</style>
+</head>
+<body>
+	<form action="" method="get">
+		<input type="text" name="username" value="{$username}">
+		<input type="button" value="搜索" class="a">
+	</form>
+	<table border="1">
+		<tr>
+			<td>ID</td>
+			<td>姓名</td>
+			<td>年龄</td>
+			<td>操作</td>
+		</tr>
+		<tbody id="list">
+	{volist name="list" id="v"}	
+		<tr>
+			<td>{$v.sid}</td>
+			<td>{$v.sname}</td>
+			<td>{$v.sage}</td>
+			<td>
+				<a class="del" href="{:url('del')}?id={$v.sid}">删除</a>
+				<a class="upd" href="{:url('upd')}?id={$v.sid}">修改</a>
+			</td>
+		</tr>
+	{/volist}
+		</tbody>
+	</table>
+	<div id="page">
+	{$list|raw}
+	</div>
+</body>
+</html>
+<script src="/static/jq.js"></script>
+<script>
+	$(document).on("click",".a",function(){
+		event.preventDefault();
+		var username=$("[name='username']").val();
+		$.ajax({
+			url:"{:url('Testa/list')}",
+			data:{username:username},
+			type:'get',
+			dataType:'json',
+			success:function(res){
+				$("#list").empty();
+				$.each(res.data,function(i,v){
+					var tr=$("<tr></tr>");
+					tr.append("<td>"+v.sid+"</td>");
+					tr.append("<td>"+v.sname+"</td>");
+					tr.append("<td>"+v.sage+"</td>");
+					tr.append("<td><a class='del' href='{:url('del')}?id="+v.sid+"'>删除</a><a class='upd' href='{:url('upd')}?id="+v.sid+"'>修改</a></td>");
+					$("#list").append(tr)
+				})
+				$("#page").html(res.page);
+			}
+		})
+	})
+	$(document).on("click",".del",function(){
+
+		event.preventDefault();
+		var _this=$(this);
+		var url=_this.attr('href');
+		$.ajax({
+			url:url,
+			success:function(res){
+				// console.log(res);
+				if(res == 1){
+					alert("删除成功");
+				}else{
+					alert("删除失败");
+				}
+				_this.parent().parent().remove();
+			}
+		})
+		
+	})
+	$(document).on("click","#page a",function(){
+		event.preventDefault();
+		var url=$(this).attr("href");
+		var username=$("[name='username']").val();
+		$.ajax({
+			url:url,
+			data:{username:username},
+			dataType:"json",
+			success:function(res){
+				$("#list").empty();
+				$.each(res.data,function(i,v){
+					// alert("2");die;
+					var tr=$("<tr></tr>");
+					tr.append("<td>"+v.sid+"</td>");
+					tr.append("<td>"+v.sname+"</td>");
+					tr.append("<td>"+v.sage+"</td>");
+					tr.append("<td><a class='del' href='{:url('del')}?id="+v.sid+"'>删除</a><a class='upd' href='{:url('upd')}?id="+v.sid+"'>修改</a></td>");
+					$("#list").append(tr)
+				})
+				$("#page").html(res.page);
+			}
+		})
+	})
+</script>

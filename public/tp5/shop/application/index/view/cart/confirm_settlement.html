@@ -1,0 +1,153 @@
+<!-- {包含导航} -->
+
+<script type="text/javascript" src="__STATIC__/index/js/n_nav.js"></script>
+{include file="public/nav" /}
+<!--End Menu End--> 
+<div class="i_bg">  
+    <div class="content mar_20">
+        <img src="/static/index/images/img2.jpg" />        
+    </div>
+    <form action="{:url('Order/order')}" method="post">
+    <!--Begin 第二步：确认订单信息 Begin -->
+    <div class="content mar_20">
+        <div class="two_bg">
+            <div class="two_t">
+                <span class="fr">
+                  <a href="{:url('Cart/cartList')}">修改</a>
+                </span>商品列表
+            </div>
+            <table border="0" class="car_tab" style="width:1110px;" cellspacing="0" cellpadding="0">
+              <tr>
+                <td class="car_th" width="550">商品名称</td>
+                <td class="car_th" width="140">单价</td>
+                <td class="car_th" width="150">购买数量</td>
+                <td class="car_th" width="130">小计</td>
+                <td class="car_th" width="140">返还积分</td>
+              </tr>
+              {volist name="cartInfo" id="v"}
+              <input type="hidden" name="goods_id" value="{$v.goods_id}">
+              <tr>
+                <td>
+                    <div class="c_s_img"><img src="{$v.goods_img}" width="73" height="73" /></div>
+                    {$v.goods_name}
+                </td>
+                <td align="center">{$v.goods_price}</td>
+                <td align="center">{$v.by_number}</td>
+                <td align="center" style="color:#ff4e00;">￥{$v.by_number * $v.goods_price}</td>
+                <td align="center">26R</td>
+              </tr>
+              {/volist}
+              <tr>
+                <td colspan="5" class="totala" align="right" style="font-family:'Microsoft YaHei';">
+                    商品总价：￥{$sum} ； 返还积分 56R  
+                </td>
+              </tr>
+            </table>
+            
+            <div class="two_t">
+                <span class="fr"><a href="{:url('Address/index')}">修改</a></span>收货人信息
+            </div>
+            <div style="height:90px;overflow:auto">
+            <table border="0" class="peo_tab" style="width:1110px;" cellspacing="0" cellpadding="0">
+                {volist name="$user_address" id="v"}
+              <tr>
+                <td>{if($v.is_default)==0}<input type="radio" name="address_id" value="{$v.address_id}">{else/}<input type="radio" checked name="address_id" value="{$v.address_id}">{/if}</td>
+                <td>{$v.province} {$v.city} {$v.district} {$v.address} {$v.consignee}</td>
+              </tr>
+                {/volist}
+            </table>
+            </div>
+            
+            
+            
+            <div class="two_t">
+                支付方式
+            </div>
+            <ul class="pay">
+                <input type="hidden" name="pay_id" value="1">
+                <li class="checked">余额支付<div class="ch_img"></div></li>
+                <li pay_id="2">银行卡<div class="ch_img"></div></li>
+                <li pay_id="3">货到付款<div class="ch_img"></div></li>
+                <li pay_id="4">支付宝<div class="ch_img"></div></li>
+            </ul>
+            <script>
+                $('.pay li').click(function(){
+                    $(this).addClass('checked').siblings().removeClass('checked');
+                    $('input[name="pay_id"]').val($(this).attr('pay_id'));
+                })
+            </script>
+            <div class="two_t">
+                其他信息
+            </div>
+            <table border="0" class="car_tab" style="width:1110px;" cellspacing="0" cellpadding="0">
+              
+              <tr valign="top">
+                <td align="right" style="padding-right:0;"><b style="font-size:14px;">订单附言：</b></td>
+                <td style="padding-left:0;"><textarea class="add_txt" name="postscript" style="width:860px; height:50px;"></textarea></td>
+              </tr>
+             
+            </table>
+            <table border="0" style="width:900px; margin-top:20px;" cellspacing="0" cellpadding="0">
+            <!-- 使用积分 -->
+              <!-- <tr height="70">
+                <td align="right">
+                    <b style="font-size:14px;">使用积分<span style="font-size:22px; color:#ff4e00;">
+                        <input type="text" name="integral">
+                        <a href="javascript:0;" class="int">使用</a>
+                    </span></b>
+                </td>
+              </tr> -->
+              <!-- 总金额   sum -->
+              <tr height="70">
+                <td align="right">
+                    <b style="font-size:14px;">总金额：
+                      <span style="font-size:22px; color:#ff4e00;" class="money" name="order_amount">{$sum}</span></b>
+                </td>
+              </tr>
+              <!-- 减免总额  minus -->
+              <tr height="70">
+                <td align="right">
+                    <b style="font-size:14px;">减免金额：
+                      <span style="font-size:22px; color:#ff4e00;" class="money" name="order_amount">
+                      {$minus}</span></b>
+                </td>
+              </tr>
+              <!-- 应付款  total -->
+               <tr height="70">
+                <td align="right">
+                    <b style="font-size:14px;">应金额：
+                      <span style="font-size:22px; color:#ff4e00;" class="money" name="order_amount">{$total}</span></b>
+                </td>
+              </tr>
+              <tr height="70">
+                <td align="right"><a href="javascript:;"  class="submit"><img src="/static/index/images/btn_sure.gif" /></a></td>
+              </tr>
+            </table>
+        </div>
+    </div>
+    <input type="hidden" name="order_amount" class="mon" value="{$sum}">
+    <input type="hidden" name="minus" class="mon" value="{$minus}">
+  </form>
+  <script>
+
+      $('.submit').click(function(){
+          $('form').submit();
+      })
+      // $('.int').click(function(){
+      //   var _this=$(this);
+      //   var integral=_this.prev('input').val();
+      //   var total=$('.money').html();
+      //   $.post("{:url('Cart/integral')}",{integral:integral,total:total},function(res){
+      //       if(res.code==2){
+      //         //使用成功
+      //         _this.parents('tr').next('tr').find('span').html(res.mon);
+      //         $(".totala").text(res.mon);
+      //         $(".mon").val(res.mon);
+      //         alert(res.font);
+      //       }else{
+      //         //失败
+      //         alert(res.font);
+      //       }
+      //   })
+      // })
+  </script>

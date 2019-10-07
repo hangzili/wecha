@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<table align="center" border="1" bgcolor="yellow">
+		<tr>
+			<td>用户名</td>
+			<td>是否是会员</td>
+			<td>用户积分</td>
+		</tr>
+		{volist name="list" id="v"}
+		<tr id="{$v.id}">
+			<td>{$v.username}</td>
+		{eq name="$v.is_member" value="1"}
+			<td class="is" value="2">是</td>
+		{else/}
+			<td class="is" value="1">否</td>
+		{/eq}
+
+		{eq name="$v.jifen" value="0"}
+			<td>没有积分</td>
+		{else/}
+			<td>{$v.jifen}</td>
+		{/eq}
+		
+		</tr>
+		{/volist}
+	</table>
+</body>
+</html>
+<script src="/static/jq.js"></script>
+<script>
+	$(document).on("click",".is",function(){ 
+		var is_member=$(this).attr('value');
+		var id=$(this).parents().attr('id');
+		var _this=$(this);
+		$.ajax({
+          //路径
+          url:"{:url('update')}",
+          data:{is_member:is_member,id:id},
+          success:function(res){
+              if(is_member==2){
+                _this.text("否").attr("value","1");
+              }else{
+                _this.text("是").attr("value","2");
+              }
+          }
+        })
+	})
+</script>

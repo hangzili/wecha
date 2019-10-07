@@ -1,0 +1,66 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>商品id</td>
+			<td>商品名称</td>
+			<td>商品价钱</td>
+		</tr>
+	<tbody id="list">
+		<tr>
+			<td>xxx</td>
+			<td>xxx</td>
+			<td>xxx</td>
+		</tr>
+	</tbody>
+	</table>
+	<button id="page">更新数据</button>	
+</body>
+</html>
+<script src="jq.js"></script>
+<script>
+	$("#page").on("click",function(){
+		$.ajax({
+			url:'check_0605.php',
+			type:'get',
+			dataType:'json',
+			success:function(res){
+				$("#list").empty();
+				$.each(res,function(k,v){
+					var tr=$("<tr></tr>");
+					tr.append("<td>"+v.id+"</td>");
+					tr.append("<td>"+v.sname+"</td>");
+					tr.append("<td>"+v.smoney+"</td>");
+					$("#list").append(tr)
+				})
+			}
+		})
+	})
+	//理论：
+	//1 jq四种选择器是
+	//类选择器  ID选择器  标签选择器 属性选择器
+	//2 jq中 text html val 什么含义
+	//设置或返回元素的文本内容
+	//设置或返回元素的内容
+	//设置或返回表单的值
+	//3 jq中 append prepend after before 什么含义
+	//在被选元素结尾插入内容
+	//在被选元素的开头插入内容
+	//在被选元素的之后插入内容
+	//在被选元素之前插入内容
+	//4 jq中 empty remove 什么含义
+	//从被选元素中删除子元素
+	//删除被选元素及子元素
+	//5 jq中 show hide toggle 什么含义
+	//显示  隐藏  切换
+	//
+	//技能：
+	//数据库中 新建商品表 字段：id，商品名称 价钱
+	//表中手动模拟几条数据
+	//点击更新按钮，获取数据表中数据，展示到页面table表格中
+
+</script>

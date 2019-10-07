@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<link rel="stylesheet" href="/static/admin/css/pintuer.css">
+    <link rel="stylesheet" href="/static/admin/css/admin.css">
+    <script src="/static/admin/js/jquery.js"></script>   
+	<form action="" method="get">
+	学生姓名：<input type="text" name="soua">
+	班级：<select name="soub">
+			{volist name="lito" id="v"}
+				<option value="{$v.cid}">{$v.class}</option>
+			{/volist}
+		</select>
+		<input type="submit" value="搜索">
+	</form>
+	<table border="1">
+		<tr>
+			<td>姓名</td>
+			<td>年龄</td>
+			<td>性别</td>
+			<td>手机号</td>
+			<td>班级</td>
+			<td>操作</td>
+		</tr>
+	{volist name="list" id="v"}
+		<tr>
+			<td>{$v.s_name}</td>
+			<td>{$v.age}</td>
+			<td>{$v.sex}</td>
+			<td>{$v.tel}</td>
+			<td>{$v.class}</td>
+			<td>
+				<a href="{:url('upd?id='.$v['id'])}">修改</a>
+				<a href="{:url('del?id='.$v['id'])}">删除</a>
+			</td>
+		</tr>
+	{/volist}
+	</table>
+	
+
+</body>
+</html>
