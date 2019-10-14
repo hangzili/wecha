@@ -84,7 +84,7 @@
 // Route::any('/cate_adddo','admina\CateController@cate_adddo');
 
 
-
+//刀不锋利马太瘦
 Route::any('wechat_access_token','WechaController@wechat_access_token');
 
 Route::any('/user','WechaController@user');
