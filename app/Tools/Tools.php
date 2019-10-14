@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: baiwei
- * Date: 2019/10/11
- * Time: 19:54
- */
 namespace App\Tools;
 use Illuminate\Support\Facades\Cache;
 class Tools {
@@ -43,7 +37,7 @@ class Tools {
             $wechat_access_token = Cache::get($key);
         }else{
             //取不到，调接口，缓存
-            $re = file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WECHAT_APPID').'&secret='.env('WECHAT_SECRET'));
+            $re = file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxcc4c342a42f5b788&secret=2b8173213438d9c74982a38e99624119');
             $result = json_decode($re,true);
             Cache::put($key,$result['access_token'],$result['expires_in']);
             $wechat_access_token = $result['access_token'];
@@ -83,3 +77,4 @@ class Tools {
         curl_close($curl);
         return $result;
     }
+}
