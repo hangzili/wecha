@@ -104,3 +104,7 @@ Route::any('/add_user_tag','wecha\LabelController@add_user_tag');
 Route::any('/add_user_list','wecha\LabelController@add_user_list');
 
 
+
+Route::any('/event','EventController@event');
+
+

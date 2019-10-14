@@ -80,17 +80,23 @@ class LabelController extends Controller
     	$upd=json_decode($re,1);
     	dump($upd);	
     }
+    //给用户打标签
     public function wechat(Request $request)
     {
     	$all=$request->all();
     	$token= new WechaController;
     	$access_token=$token->wechat_access_token();
-    	$url='https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token='.$access_token.'&next_openid=';
-    	$data=[
-    		'tagid'=>$all['id'],
-    		'next_openid'=>''
-    	];
-    	$url1=$this->post($url,$data);
+    	// $url='https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token='.$access_token.'&next_openid=';
+    	// $data=[
+    	// 	'tagid'=>$all['id'],
+    	// 	'next_openid'=>''
+    	// ];
+    	// $url1=$this->post($url,$data);
+    	// // dd($url1);
+    	// $list=json_decode($url1,1);
+    	// dd($list);
+    	$url='https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$access_token.'&next_openid=';
+    	$url1=$this->get($url);
     	// dd($url1);
     	$list=json_decode($url1,1);
     	// dd($list);
@@ -110,6 +116,7 @@ class LabelController extends Controller
     	$list=json_decode($re,1);
     	dump($list);
     }
+    //获取用户的标签
     public function add_user_list(Request $request)
     {
     	$all=$request->all();
