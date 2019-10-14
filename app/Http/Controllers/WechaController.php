@@ -13,20 +13,20 @@ class WechaController extends Controller
 		// echo $res;
 	}
 	//获取access_token
-    public function wechat_access_token()
-    {
-    	$key="wechat_access_token";
-    	if(\Cache::has($key)){
-    		$wechat_access_token=\Cache::get($key);
-    	}else{
-    		$re=file_get_contents("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxcc4c342a42f5b788&secret=2b8173213438d9c74982a38e99624119");
+    // public function wechat_access_token()
+    // {
+    // 	$key="wechat_access_token";
+    // 	if(\Cache::has($key)){
+    // 		$wechat_access_token=\Cache::get($key);
+    // 	}else{
+    // 		$re=file_get_contents("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxcc4c342a42f5b788&secret=2b8173213438d9c74982a38e99624119");
     		
-    		$result=json_decode($re,1);
-    		\Cache::put($key,$result['access_token'],$result['expires_in']);
-    		$wechat_access_token=$result['access_token'];
-    	}
-    	return $wechat_access_token;
-    }
+    // 		$result=json_decode($re,1);
+    // 		\Cache::put($key,$result['access_token'],$result['expires_in']);
+    // 		$wechat_access_token=$result['access_token'];
+    // 	}
+    // 	return $wechat_access_token;
+    // }
     public function a()
     {
         echo 4;
