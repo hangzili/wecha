@@ -7,10 +7,10 @@ use Illuminate\Support\Fachades\Cache;
 use APP\Tools\Tools;
 class WechaController extends Controller
 {
-    public $tools;
-    public function __construct(Tools $tools)
-    {   
-        $tools=$this->tools;
+     public $tools;
+    public function __construct($tools)
+    {
+        $this->tools = $tools;
     }
 	public function index()
 	{
@@ -39,7 +39,7 @@ class WechaController extends Controller
     }
     public function user()
     {
-    	$res=file_get_contents('https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$this->wechat_access_token().'&next_openid=');
+    	$res=file_get_contents('https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$this->tools->get_access_token().'&next_openid=');
     	dd($res);
     	$result=json_decode($res,1);
     	// dump($result);
@@ -47,7 +47,7 @@ class WechaController extends Controller
     	$lists=[];
     	foreach($openid_list as $v){
 
-    		$list=file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->wechat_access_token().'&openid='.$v.'&lang=zh_CN');
+    		$list=file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_access_token().'&openid='.$v.'&lang=zh_CN');
     		$results=json_decode($list,1);
     		$lists[]=$results;
     	}

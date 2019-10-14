@@ -13,8 +13,11 @@ class EventController extends Controller
         $this->tools=$tools;
         $this->request=$request;
     }
+
     public function event()
     {
-    	echo $_GET['echostr'];
+    	echo storage_path();
+    	dd();
+    	// echo $_GET['echostr'];
     }
 }
