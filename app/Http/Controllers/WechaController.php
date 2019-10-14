@@ -4,8 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Fachades\Cache;
+use APP\Tools\Tools;
 class WechaController extends Controller
 {
+    public $tools;
+    public function __construct(Tools $tools)
+    {   
+        $tools=$this->tools;
+    }
 	public function index()
 	{
 		// echo file_get_contents("https://api.weixin.qq.com/cgi-bin/user/get?access_token=26_VERDJYBBRsfb5FtbhnudveRNWGFSCUVAheqbEA_taRi6nMrNn5VBHdrETk_q_PtMdgjffiN_5Ofbg1Y3-uauMFjt5HDtTP3sIA0J0TrYmHtjQZ50nymSfYId8BNG59NQRup7cEc_AupGwWA4NKVgAJABYJ&next_openid=");
@@ -41,7 +47,7 @@ class WechaController extends Controller
     	$lists=[];
     	foreach($openid_list as $v){
 
-    		$list=file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->wechat_access_token().'&openid='.$v.'&lang=zh_CN');
+    		$list=file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->wechat_access_token().'&openid='.$v.'&lang=zh_CN');
     		$results=json_decode($list,1);
     		$lists[]=$results;
     	}
