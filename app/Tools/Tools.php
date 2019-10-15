@@ -29,20 +29,18 @@ class Tools {
      * 获取微信access_token
      */
     public function get_access_token()
-    {
-        $key = 'wechat_access_token';
-        //判断缓存是否存在
-        if(Cache::has($key)) {
-            //取缓存
-            $wechat_access_token = Cache::get($key);
-        }else{
-            //取不到，调接口，缓存
-            $re = file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxcc4c342a42f5b788&secret=2b8173213438d9c74982a38e99624119');
-            $result = json_decode($re,true);
-            Cache::put($key,$result['access_token'],$result['expires_in']);
-            $wechat_access_token = $result['access_token'];
-        }
-        return $wechat_access_token;
+    {  
+     $key="wechat_access_token";
+     if(\Cache::has($key)){
+         $wechat_access_token=\Cache::get($key);
+     }else{
+         $re=file_get_contents("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxcc4c342a42f5b788&secret=2b8173213438d9c74982a38e99624119");
+            
+         $result=json_decode($re,1);
+         \Cache::put($key,$result['access_token'],$result['expires_in']);
+         $wechat_access_token=$result['access_token'];
+     }
+     return $wechat_access_token;
     }
     /**
      * post
