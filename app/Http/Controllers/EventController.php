@@ -16,16 +16,17 @@ class EventController extends Controller
 
     public function event()
     {
+    	echo $_GET['echostr'];
     		// 接收xml数据  接收微信发过来的数据
-    	$info = file_get_contents("php://input");
-    	// dd($info);
-    		//将字符串写入文件
-        file_put_contents(storage_path('logs/wechat/'.date('Y-m-d').'.log'),"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",FILE_APPEND);
-        file_put_contents(storage_path('logs/wechat/'.date('Y-m-d').'.log'),$info,FILE_APPEND);
-        	//xml格式字符串转化为对应的SimpleXMLElement对象   解析xml数据的
-        $xml_obj = simplexml_load_string($info,'SimpleXMLElement',LIBXML_NOCDATA);
-        	//将对象转化为数组格式
-        $xml_arr = (array)$xml_obj;
-        dd($xml_arr);
+    	// $info = file_get_contents("php://input");
+    	// // dd($info);
+    	// 	//将字符串写入文件
+     //    file_put_contents(storage_path('logs/wechat/'.date('Y-m-d').'.log'),"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",FILE_APPEND);
+     //    file_put_contents(storage_path('logs/wechat/'.date('Y-m-d').'.log'),$info,FILE_APPEND);
+     //    	//xml格式字符串转化为对应的SimpleXMLElement对象   解析xml数据的
+     //    $xml_obj = simplexml_load_string($info,'SimpleXMLElement',LIBXML_NOCDATA);
+     //    	//将对象转化为数组格式
+     //    $xml_arr = (array)$xml_obj;
+     //    dd($xml_arr);
     }
 }
