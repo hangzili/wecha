@@ -104,7 +104,13 @@ Route::any('/add_user_tag','wecha\LabelController@add_user_tag');
 Route::any('/add_user_list','wecha\LabelController@add_user_list');
 
 
-
+//log
 Route::any('/event','EventController@event');
+//素材传
 
+Route::any('/wecha/upload','ResourceController@upload');
+Route::any('/wecha/do_upload','ResourceController@do_upload');
+Route::any('/wecha/source_list','ResourceController@source_list');
 
+//自定义菜单
+Route::any('/wecha/menu','ResourceController@menu');

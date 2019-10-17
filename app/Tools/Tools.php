@@ -14,7 +14,23 @@ class Tools {
         return $result;
     }
     /**
-     * 根据openid获取用户的基本新
+     * 素材
+     * @return 
+     */
+    public function wechat_curl_file($url,$data)
+    {
+        $curl = curl_init($url);
+        curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,false);
+        curl_setopt($curl,CURLOPT_SSL_VERIFYHOST,false);
+        curl_setopt($curl,CURLOPT_POST,true);
+        curl_setopt($curl,CURLOPT_POSTFIELDS,$data);
+        $result = curl_exec($curl);
+        curl_close($curl);
+        return $result;
+    }
+    /**
+     * 根据openid获取用户的基本信息
      * @param $openid
      * @return mixed
      */
