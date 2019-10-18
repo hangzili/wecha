@@ -13,7 +13,7 @@ class EventController extends Controller
         $this->tools=$tools;
         $this->request=$request;
     }
-    //管理
+    //管理3
     public function event()
     {
     		// 接收xml数据  接收微信发过来的数据
