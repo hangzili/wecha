@@ -56,7 +56,7 @@ class ResourceController extends Controller
     	}
     	// dd($result);
     }
-    //素材列表
+    //素材列表123
     public function source_list()
     {
     	// $url='https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token='.$this->tools->get_access_token();
