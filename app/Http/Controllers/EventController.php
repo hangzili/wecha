@@ -23,7 +23,7 @@ class EventController extends Controller
         file_put_contents(storage_path('logs/wechat/'.date('Y-m-d').'.log'),$info,FILE_APPEND);
         	//xml格式字符串转化为对应的SimpleXMLElement对象   解析xml数据的
         $xml_obj = simplexml_load_string($info,'SimpleXMLElement',LIBXML_NOCDATA);
-        	//将对象转化为数组格式
+        	//将对象转化为数组格式23
         $xml_arr = (array)$xml_obj;
 
         if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'subscribe'){
