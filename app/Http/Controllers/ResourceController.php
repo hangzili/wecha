@@ -54,7 +54,7 @@ class ResourceController extends Controller
     			'addtime'=>time()
     		]);
     	}
-    	// dd($result);
+    	// dd($result);2
     }
     //素材列表123
     public function source_list()
