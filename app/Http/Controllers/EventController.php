@@ -13,7 +13,7 @@ class EventController extends Controller
         $this->tools=$tools;
         $this->request=$request;
     }
-
+    //管理
     public function event()
     {
     		// 接收xml数据  接收微信发过来的数据
@@ -25,6 +25,7 @@ class EventController extends Controller
         $xml_obj = simplexml_load_string($info,'SimpleXMLElement',LIBXML_NOCDATA);
         	//将对象转化为数组格式
         $xml_arr = (array)$xml_obj;
+
         if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'subscribe'){
             $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
             $msg = '你好'.$wechat_user['nickname'].'，欢迎关注我的宝贝！';
@@ -35,5 +36,6 @@ class EventController extends Controller
             $msg = '我好你也好';
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         }
+
     }
 }
