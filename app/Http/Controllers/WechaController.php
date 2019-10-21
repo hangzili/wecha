@@ -7,7 +7,7 @@ use Illuminate\Support\Fachades\Cache;
 use APP\Tools\Tools;
 class WechaController extends Controller
 {
-     public $tools;
+    public $tools;
     public function __construct($tools)
     {
         $this->tools = $tools;

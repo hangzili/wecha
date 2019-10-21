@@ -102,6 +102,7 @@ class LabelController extends Controller
     	// dd($list);
     	return view('/wecha/wechat',['list'=>$list['data']['openid'],'id'=>$all['id']]);
     }
+    //批量为用户取消标签
     public function add_user_tag(Request $request)
     {
     	$all=$request->all();

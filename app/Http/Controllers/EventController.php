@@ -31,11 +31,11 @@ class EventController extends Controller
         //     $msg = '你好'.$wechat_user['nickname'].'，欢迎关注我的宝贝！';
         //     echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         // }
-        // if($xml_arr['MsgType'] == 'text' && $xml_arr['Event'] == '你好'){
-        //     $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
-        //     $msg = '我好你也好';
-        //     echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
-        // }
+        if($xml_arr['MsgType'] == 'text' && $xml_arr['Content'] == '你好'){
+            $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
+            $msg = '我好你也好';
+            echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
+        }
 
     }
 }

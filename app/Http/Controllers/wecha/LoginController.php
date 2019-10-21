@@ -10,7 +10,7 @@ class LoginController extends Controller
     public function wecha_login()
     {
     	$urls=urlencode(env('APP_URL').'/wecha/code');
-    	$url= 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcc4c342a42f5b788&redirect_uri=http://www.a.cn/wecha/code&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
+    	$url= 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcc4c342a42f5b788&redirect_uri=http://www.a.cn/wecha/code&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect';
     	header('Location:'.$url);
     }
     public function wecha_code(Request $request)
