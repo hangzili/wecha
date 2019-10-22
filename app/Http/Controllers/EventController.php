@@ -99,9 +99,9 @@ class EventController extends Controller
     public function asd()
         {
             $data=[
-                'name'=>234
+                ['name'=>234]
             ];
-            $list=UserModel::create($data);
+            $list=UserModel::insert($data);
             dump($list);
         }
    
