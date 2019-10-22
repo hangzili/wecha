@@ -116,7 +116,7 @@ class EventController extends Controller
                 //第一次签到
             if($usere_wechat == null){
                     $data = [
-                        'openid'=>$xml_arr['FromUserName'],
+                        'openid'=>3,
                         'uid'=>1,
                         'sign_day'=>$today,
                         'sign_num'=>1,
