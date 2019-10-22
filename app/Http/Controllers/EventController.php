@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tools\Tools;
-use App\wechat\UserwechaModle;
+use App\wechat\UserwechaModel;
 class EventController extends Controller
 {
 	public $tools;
@@ -36,7 +36,7 @@ class EventController extends Controller
             //签到领积分
         if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'CLICK' && $xml_arr['EventKey'] == 'sign'){
             //从表里获取用户签到的记录
-            $user_wecha = UserwechaModle::where(['openid'=>$xml_arr['FromUserName']])->first();
+            $user_wecha = UserwechaModel::where(['openid'=>$xml_arr['FromUserName']])->first();
             $today = date('Y-m-d',time()); //今天
             $last_day = date('Y-m-d',strtotime("-1 days")); //昨天
             //判断今天是否签到 
@@ -52,14 +52,14 @@ class EventController extends Controller
                     if($sign_num >= 6){
                         $sign_num = 1;
                     }
-                    UserwechaModle::where(['openid'=>$xml_arr['FromUserName']])->update([
+                    UserwechaModel::where(['openid'=>$xml_arr['FromUserName']])->update([
                         'sign_day'=>$today,
                         'sign_num'=>$sign_num,
                         'sign_score'=>$usere_wechat->sign_score + 5 * $sign_num
                     ]);
                 }else{
                     //非连续签到
-                    UserwechaModle::where(['openid'=>$xml_arr['FromUserName']])->update([
+                    UserwechaModel::where(['openid'=>$xml_arr['FromUserName']])->update([
                         'sign_day'=>$today,
                         'sign_num'=>1,
                         'sign_score'=>$usere_wechat->sign_score + 5
