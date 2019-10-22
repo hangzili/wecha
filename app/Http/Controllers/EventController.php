@@ -36,18 +36,11 @@ class EventController extends Controller
             //签到领积分
         if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'CLICK' && $xml_arr['EventKey'] == 'sign'){
             //从表里获取用户签到的记录
-            $user_wecha = UserwechaModel::where(['openid'=>$xml_arr['FromUserName']])->first();
+            $usere_wechat = UserwechaModel::where(['openid'=>$xml_arr['FromUserName']])->first();
             $today = date('Y-m-d',time()); //今天
             $last_day = date('Y-m-d',strtotime("-1 days")); //昨天
-            
-            //判断今天是否签到 
-            if($user_wecha->sign_day == $today){
-                //签到了返回  签到了
-                $msg = '您已签到，请勿重复签到';
-                echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
-            }else{
                 //第一次签到
-                if($user_wecha==[]){
+            if($usere_wechat==[]){
                     $data = [
                         'openid'=>$xml_arr['FromUserName'],
                         'uid'=>1
@@ -56,7 +49,15 @@ class EventController extends Controller
                         'sign_score'=>2
                     ];
                     UserwechaModel::insert($data);
-                }else{
+            }else{
+            //判断今天是否签到 
+            if($usere_wechat->sign_day == $today){
+                //签到了返回  签到了
+                $msg = '您已签到，请勿重复签到';
+                echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
+            }else{
+                //第一次签到
+                
                 //如果客户没有签到
                 if($usere_wechat->sign_day == $last_day){
                     //连续签到
