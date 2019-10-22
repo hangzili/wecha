@@ -110,7 +110,7 @@ class EventController extends Controller
     }
     public function asd()
     {
-        $usere_wechat = UserwechaModel::where(['openid'=>$xml_arr['FromUserName']])->first();
+        $usere_wechat = UserwechaModel::where([])->first();
             $today = date('Y-m-d',time()); //今天
             $last_day = date('Y-m-d',strtotime("-1 days")); //昨天
                 //第一次签到
