@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tools\Tools;
 use App\wechat\UserwechaModel;
+
+use App\wechat\UserModel;
 class EventController extends Controller
 {
 	public $tools;
@@ -38,6 +40,7 @@ class EventController extends Controller
             $msg = '我好你也好';
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         }
+
 
             //签到领积分
         // if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'CLICK' && $xml_arr['EventKey'] == 'sign'){
@@ -93,6 +96,11 @@ class EventController extends Controller
         
 
     }
+    public function asd()
+        {
+            $list=UserModel::select();
+            dumP($list);
+        }
    
 
     

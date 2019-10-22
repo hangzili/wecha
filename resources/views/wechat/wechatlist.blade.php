@@ -14,7 +14,7 @@
                 @foreach($user_info as $v)
                 <tr>
                     <td>{{$v->name}}</td>
-                    <td><img src="{{ asset($v->qrcode_url) }}" alt="" width="150"></td>
+                    <td><img src="{{ asset($v->qrcode_url) }}"width="150"></td>
                     <td>{{$v->share_num}}</td>
                     <td><a href="{{url('/wechat/create_qrcode')}}?uid={{$v->id}}">生成专属二维码</a></td>
                 </tr>

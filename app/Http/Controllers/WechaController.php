@@ -20,6 +20,7 @@ class WechaController extends Controller
     public function wechat_list()
     {
         $user_info = User::get();
+        // dd($user_info);
         return view('Wechat.wechatList',['user_info'=>$user_info]);
     }
     //
