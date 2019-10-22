@@ -39,6 +39,20 @@ class EventController extends Controller
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         }
         if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'CLICK' && $xml_arr['EventKey'] == 'sign'){
+            $usere_wechat = UserwechaModel::where(['openid'=>$xml_arr['FromUserName']])->first();
+            $today = date('Y-m-d',time()); //今天
+            $last_day = date('Y-m-d',strtotime("-1 days")); //昨天
+                //第一次签到
+            if($usere_wechat == null){
+                    $data = [
+                        'openid'=>$xml_arr['FromUserName'],
+                        'uid'=>1,
+                        'sign_day'=>$today,
+                        'sign_num'=>1,
+                        'sign_score'=>2
+                    ];
+                    UserwechaModel::insert($data);
+            }
             $msg = '签到成功';
                 echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
             
