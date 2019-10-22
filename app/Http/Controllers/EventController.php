@@ -32,6 +32,12 @@ class EventController extends Controller
             $msg = '你好'.$wechat_user['nickname'].'，欢迎关注我的宝贝！';
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         }
+            //"你好"   回复 "你好"
+        if($xml_arr['MsgType'] == 'text' && $xml_arr['Content'] == '你好'){
+            $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
+            $msg = '我好你也好';
+            echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
+        }
 
             //签到领积分
         if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'CLICK' && $xml_arr['EventKey'] == 'sign'){
@@ -40,7 +46,7 @@ class EventController extends Controller
             $today = date('Y-m-d',time()); //今天
             $last_day = date('Y-m-d',strtotime("-1 days")); //昨天
                 //第一次签到
-            if($usere_wechat==[]){
+            if($usere_wechat == null){
                     $data = [
                         'openid'=>$xml_arr['FromUserName'],
                         'uid'=>1
@@ -84,12 +90,7 @@ class EventController extends Controller
             }
         }
             
-            //"你好"   回复 "你好"
-        if($xml_arr['MsgType'] == 'text' && $xml_arr['Content'] == '你好'){
-            $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
-            $msg = '我好你也好';
-            echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
-        }
+        
 
     }
 }
