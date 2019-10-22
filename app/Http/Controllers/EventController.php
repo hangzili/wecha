@@ -45,6 +45,17 @@ class EventController extends Controller
                 $msg = '您已签到，请勿重复签到';
                 echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
             }else{
+                //第一次签到
+                if($user_wecha==[]){
+                    $data = [
+                        'openid'=>$xml_arr['FromUserName'],
+                        'uid'=>1
+                        'sign_day'=>$today,
+                        'sign_num'=>1
+                        'sign_score'=>2
+                    ];
+                    UserwechaModel::insert($data);
+                }else{
                 //如果客户没有签到
                 if($usere_wechat->sign_day == $last_day){
                     //连续签到
@@ -64,6 +75,7 @@ class EventController extends Controller
                         'sign_num'=>1,
                         'sign_score'=>$usere_wechat->sign_score + 5
                         ]);
+                }
                 }
                 $msg = '签到成功';
                 echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
