@@ -85,7 +85,7 @@
 
 Route::any('wechat_access_token','WechaController@wechat_access_token');
 
-Route::any('/user','WechaController@user');
+Route::any('/user','WechaController@user');//关注者信息
 Route::any('/login',function(){
 	return view('wecha/login');
 });
@@ -126,3 +126,6 @@ Route::post('/wechat/create_menu','MenuController@create_menu'); //菜单
 Route::get('/wechat/load_menu','MenuController@load_menu'); //刷新菜单
 
 
+//带参数的二维码
+Route::get('/wechat/wechat_list','WechaController@wechat_list');
+Route::get('/wechat/create_qrcode','WechaController@create_qrcode');
