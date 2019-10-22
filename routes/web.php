@@ -132,4 +132,3 @@ Route::get('/wechat/create_qrcode','WechaController@create_qrcode');
 
 
 
-Route::get('/asd','EventController@asd');

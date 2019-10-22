@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Tools\Tools;
 use App\wechat\UserwechaModel;
 
-use App\wechat\UserModel;
+use App\wechat\UserModel as UserWechat;
 class EventController extends Controller
 {
 	public $tools;
@@ -80,7 +80,7 @@ class EventController extends Controller
  
             }
         }
-                           }
+     }
         }
             
         
