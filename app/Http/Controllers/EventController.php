@@ -57,7 +57,7 @@ class EventController extends Controller
                 echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
             
         }
-        //签到领积分
+        //签到领积分sfs
         // if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'CLICK' && $xml_arr['EventKey'] == 'sign'){
             //从表里获取用户签到的记录
             // $usere_wechat = UserwechaModel::where(['openid'=>$xml_arr['FromUserName']])->first();
