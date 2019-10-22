@@ -101,7 +101,7 @@ class EventController extends Controller
             $data=[
                 'name'=>234
             ];
-            $list=UserModel::insert($data);
+            $list=UserModel::create($data);
             dump($list);
         }
    
