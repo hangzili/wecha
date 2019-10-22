@@ -126,3 +126,4 @@ Route::post('/wechat/create_menu','MenuController@create_menu'); //菜单
 Route::get('/wechat/load_menu','MenuController@load_menu'); //刷新菜单
 
 
+Route::get('/asd','EventController@asd'); //刷新菜单
