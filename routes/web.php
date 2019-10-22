@@ -102,7 +102,7 @@ Route::any('/updat_do','wecha\LabelController@updat_do');
 Route::any('/wechat','wecha\LabelController@wechat');
 Route::any('/add_user_tag','wecha\LabelController@add_user_tag');
 Route::any('/add_user_list','wecha\LabelController@add_user_list');
-//周试登陆
+//周试 登陆
 Route::any('/long/long','wecha\LongsController@long');
 Route::any('/long/longs','wecha\LongsController@longs');
 Route::any('/long/code','wecha\LongsController@code');

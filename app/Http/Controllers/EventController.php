@@ -39,8 +39,9 @@ class EventController extends Controller
             $user_wecha = UserwechaModel::where(['openid'=>$xml_arr['FromUserName']])->first();
             $today = date('Y-m-d',time()); //今天
             $last_day = date('Y-m-d',strtotime("-1 days")); //昨天
+            
             //判断今天是否签到 
-            if($usere_wechat->sign_day == $today){
+            if($user_wecha->sign_day == $today){
                 //签到了返回  签到了
                 $msg = '您已签到，请勿重复签到';
                 echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
