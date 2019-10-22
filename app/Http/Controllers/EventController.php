@@ -76,7 +76,7 @@ class EventController extends Controller
                         'sign_score'=>$usere_wechat->sign_score + 5
                         ]);
                 }
-                }
+                 }
                 $msg = '签到成功';
                 echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
             }
