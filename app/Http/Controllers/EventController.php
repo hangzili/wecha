@@ -40,57 +40,59 @@ class EventController extends Controller
         }
 
             //签到领积分
-        // if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'CLICK' && $xml_arr['EventKey'] == 'sign'){
-        //     //从表里获取用户签到的记录
-        //     $usere_wechat = UserwechaModel::where(['openid'=>$xml_arr['FromUserName']])->first();
-        //     $today = date('Y-m-d',time()); //今天
-        //     $last_day = date('Y-m-d',strtotime("-1 days")); //昨天
-        //         //第一次签到
-        //     if($usere_wechat == null){
-        //             $data = [
-        //                 'openid'=>$xml_arr['FromUserName'],
-        //                 'uid'=>1
-        //                 'sign_day'=>$today,
-        //                 'sign_num'=>1
-        //                 'sign_score'=>2
-        //             ];
-        //             UserwechaModel::insert($data);
-        //     }else{
-        //     //判断今天是否签到 
-        //     if($usere_wechat->sign_day == $today){
-        //         //签到了返回  签到了
-        //         $msg = '您已签到，请勿重复签到';
-        //         echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
-        //     }else{
-        //         //第一次签到
-                
-        //         //如果客户没有签到
-        //         if($usere_wechat->sign_day == $last_day){
-        //             //连续签到
-        //             $sign_num = $usere_wechat->sign_num + 1;
-        //             if($sign_num >= 6){
-        //                 $sign_num = 1;
-        //             }
-        //             UserwechaModel::where(['openid'=>$xml_arr['FromUserName']])->update([
-        //                 'sign_day'=>$today,
-        //                 'sign_num'=>$sign_num,
-        //                 'sign_score'=>$usere_wechat->sign_score + 5 * $sign_num
-        //             ]);
-        //         }else{
-        //             //非连续签到
-        //             UserwechaModel::where(['openid'=>$xml_arr['FromUserName']])->update([
-        //                 'sign_day'=>$today,
-        //                 'sign_num'=>1,
-        //                 'sign_score'=>$usere_wechat->sign_score + 5
-        //                 ]);
-        //         }
-        //          }
-        //         $msg = '签到成功';
-        //         echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
-        //     }
-        // }
+        if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'CLICK' && $xml_arr['EventKey'] == 'sign'){
+            //从表里获取用户签到的记录
+            $usere_wechat = UserwechaModel::where(['openid'=>$xml_arr['FromUserName']])->first();
+            $today = date('Y-m-d',time()); //今天
+            $last_day = date('Y-m-d',strtotime("-1 days")); //昨天
+                //第一次签到
+            if($usere_wechat == null){
+                    $data = [
+                        'openid'=>$xml_arr['FromUserName'],
+                        'uid'=>1,
+                        'sign_day'=>$today,
+                        'sign_num'=>1,
+                        'sign_score'=>2
+                    ];
+                    UserwechaModel::insert($data);
+            }else{
+            //判断今天是否签到 
+                if($usere_wechat->sign_day == $today){
+                    //签到了返回  签到了
+                    $msg = '您已签到，请勿重复签到';
+                    echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
+                }else{
+                    //第一次签到
+                    
+                    //如果客户没有签到
+                    if($usere_wechat->sign_day == $last_day){
+                        //连续签到
+                        $sign_num = $usere_wechat->sign_num + 1;
+                        if($sign_num >= 6){
+                            $sign_num = 1;
+                        }
+                        UserwechaModel::where(['openid'=>$xml_arr['FromUserName']])->update([
+                            'sign_day'=>$today,
+                            'sign_num'=>$sign_num,
+                            'sign_score'=>$usere_wechat->sign_score + 5 * $sign_num
+                        ]);
+                    }else{
+                        //非连续签到
+                        UserwechaModel::where(['openid'=>$xml_arr['FromUserName']])->update([
+                            'sign_day'=>$today,
+                            'sign_num'=>1,
+                            'sign_score'=>$usere_wechat->sign_score + 5
+                            ]);
+                    }
+                }
+                $msg = '签到成功';
+                echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
+            }
+        }
             
         
 
     }
+
+    
 }
