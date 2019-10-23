@@ -131,5 +131,6 @@ Route::get('/wechat/load_menu','MenuController@load_menu'); //刷新菜单
 Route::get('/wechat/wechat_list','WechaController@wechat_list');
 Route::get('/wechat/create_qrcode','WechaController@create_qrcode');
 
+Route::get('/wechat/location','WechaController@get_lication');
 
 
