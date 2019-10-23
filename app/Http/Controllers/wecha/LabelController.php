@@ -3,15 +3,22 @@
 namespace App\Http\Controllers\wecha;
 use App\Http\Controllers\WechaController;
 use Illuminate\Http\Request;
+use App\Tools\Tools;
 use App\Http\Controllers\Controller;
 
 class LabelController extends Controller
 {
+    public $tools;
+    public $request;
+    public function __construct(Tools $tools,Request $request)
+    {
+        $this->tools=$tools;
+        $this->request=$request;
+    }
 	//标签展示
     public function label_list()
     {
-    	$token= new WechaController;
-    	$access_token=$token->wechat_access_token();
+    	$access_token=$this->tools->get_access_token();
     	$url='https://api.weixin.qq.com/cgi-bin/tags/get?access_token='.$access_token;
     	$url1=$this->get($url);
     	$url2=json_decode($url1,1);
@@ -27,8 +34,7 @@ class LabelController extends Controller
     public function label_add_do(Request $request)
     {
     	$all=$request->all();
-    	$token= new WechaController;
-    	$access_token=$token->wechat_access_token();
+    	$access_token=$this->tools->get_access_token();
     	$url='https://api.weixin.qq.com/cgi-bin/tags/create?access_token='.$access_token;
     	// $url=json_decode($url,1);
     	$data=[   
@@ -45,8 +51,7 @@ class LabelController extends Controller
     {
     	$all=$request->all();
     	// dd($all['id']);
-    	$token= new WechaController;
-    	$access_token=$token->wechat_access_token();
+    	$access_token=$this->tools->get_access_token();
     	$url='https://api.weixin.qq.com/cgi-bin/tags/delete?access_token='.$access_token;
     	$data=[   
     		"tag" =>[     
@@ -67,8 +72,7 @@ class LabelController extends Controller
     public function updat_do(Request $request)
     {
     	$all=$request->all();
-    	$token= new WechaController;
-    	$access_token=$token->wechat_access_token();
+    	$access_token=$this->tools->get_access_token();
     	$url='https://api.weixin.qq.com/cgi-bin/tags/update?access_token='.$access_token;
     	$data=[   
     		"tag" =>[     
@@ -84,8 +88,7 @@ class LabelController extends Controller
     public function wechat(Request $request)
     {
     	$all=$request->all();
-    	$token= new WechaController;
-    	$access_token=$token->wechat_access_token();
+        $access_token=$this->tools->get_access_token();
     	// $url='https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token='.$access_token.'&next_openid=';
     	// $data=[
     	// 	'tagid'=>$all['id'],
@@ -106,8 +109,7 @@ class LabelController extends Controller
     public function add_user_tag(Request $request)
     {
     	$all=$request->all();
-    	$token= new WechaController;
-    	$access_token=$token->wechat_access_token();
+    	$access_token=$this->tools->get_access_token();
     	$url='https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token='.$access_token;
     	$data=[
     		'tagid'=>$all['id'],
@@ -121,8 +123,7 @@ class LabelController extends Controller
     public function add_user_list(Request $request)
     {
     	$all=$request->all();
-    	$token= new WechaController;
-    	$access_token=$token->wechat_access_token();
+    	$access_token=$this->tools->get_access_token();
     	$url='https://api.weixin.qq.com/cgi-bin/tags/getidlist?access_token='.$access_token;
     	$data=[
     		'openid'=>$all['id']

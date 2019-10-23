@@ -81,11 +81,6 @@ class EventController extends Controller
                 }
             }
         }
-    public function asd()
-    {
-        $list=UserWechat::where(['id'=>1])->delete();
-        dump($list);
-    }
 }
             
         

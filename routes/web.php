@@ -83,16 +83,17 @@
 // Route::any('/cate_add','admina\CateController@cate_add');
 // Route::any('/cate_adddo','admina\CateController@cate_adddo');
 
-Route::any('wechat_access_token','WechaController@wechat_access_token');
 
 Route::any('/user','WechaController@user');//关注者信息
+//授权登陆
 Route::any('/login',function(){
+	// echo 4;
 	return view('wecha/login');
 });
+//授权登陆后获取基本信息
 Route::any('/wecha/login','wecha\LoginController@wecha_login');
 Route::any('/wecha/code','wecha\LoginController@wecha_code');
-Route::any('/get','WechaController@get');
-Route::any('/post','WechaController@post');
+//给用户打标签 删除  修改
 Route::any('/label_list','wecha\LabelController@label_list');
 Route::any('/label_add','wecha\LabelController@label_add');
 Route::any('/label_add_do','wecha\LabelController@label_add_do');
@@ -132,4 +133,3 @@ Route::get('/wechat/create_qrcode','WechaController@create_qrcode');
 
 
 
-Route::get('/asd','EventController@asd');
