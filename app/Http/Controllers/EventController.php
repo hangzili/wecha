@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tools\Tools;
-use App\wechat\UserwechaModel;
+use App\wechat\UserwechaModel as UserWechat;
 
-use App\wechat\UserModel as UserWechat;
+use App\wechat\UserModel;
 class EventController extends Controller
 {
 	public $tools;
