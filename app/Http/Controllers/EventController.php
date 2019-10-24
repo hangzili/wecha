@@ -39,23 +39,31 @@ class EventController extends Controller
     //点击课程管理
     public function guanli()
     {
-        $list = ClassModel::select();
-        // dd($list);3
-        if($list){
+        $list = ClassModel::count();
+        // dump($list);die;
+        // dd($list);
+        if($list == 0){
+            //添加
             return view('wechat/class_add');
         }else{
             //修改
-            $list = ClassModel::get();
+            $list = ClassModel::get()->toArray();
+            $list = $list[0];
             return view('wechat/class_update',['list'=>$list]);
         }
     }
-        //课程添加执行
-        public function class_add_do(Request $request)
-        {
-            $all = $request->all();
-            $res = ClassModel::create($all);
-
-        }
+    //课程添加执行
+    public function class_add_do(Request $request)
+    {
+        $all = $request->all();
+        $res = ClassModel::create($all);
+    }
+    //课程修改执行
+    public function class_update_do(Request $request)
+    {
+        $all = $request->except('_token');
+        $res = ClassModel::where([])->update($all);
+    }
         
 
 

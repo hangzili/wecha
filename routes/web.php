@@ -136,4 +136,5 @@ Route::get('/wechat/location','WechaController@get_lication');
 //课程添加
 Route::any('/wechat/class_add_do','EventController@class_add_do');
 Route::any('/wechat/guanli','EventController@guanli');
+Route::any('/wechat/class_update_do','EventController@class_update_do');
 
