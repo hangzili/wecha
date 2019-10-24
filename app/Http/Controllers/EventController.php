@@ -41,6 +41,7 @@ class EventController extends Controller
             //如果表空，就添加
             if($list == null){
                 // return view('wechat/class_add');die;
+                $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->tools->get_access_token();
                 $data = [
                     "name"=>'菜单',
                     'sub_button'=>[
@@ -49,6 +50,7 @@ class EventController extends Controller
                         'url'=>'http://www.a.cn/wechat/class_add'
                     ]
                 ];
+                $re = $this->tools->curl_post($url,json_encode($data));
     
             }else{
                 //如果不空，修改
