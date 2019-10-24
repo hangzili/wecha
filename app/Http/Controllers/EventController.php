@@ -46,6 +46,7 @@ class EventController extends Controller
             }
             
         }
+    }
         //课程添加执行
         public function class_add_do(Request $request)
         {
