@@ -39,12 +39,12 @@ class EventController extends Controller
         
             $list = ClassModel::get();
             //如果表空，就添加
-            // if($list == null){
-            //     return view('wechat/class_add');die;
-            // }else{
-            //     //如果不空，修改
-            //     return view('wechat/class_update');
-            // }
+            if($list == null){
+                return view('wechat/class_add');die;
+            }else{
+                //如果不空，修改
+                return view('wechat/class_update');
+            }
             
         }
     }
