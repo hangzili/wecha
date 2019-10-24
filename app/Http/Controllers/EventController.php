@@ -36,14 +36,17 @@ class EventController extends Controller
         }
         //点击管理课程
         if($xml_arr['MsgType'] == 'event' && $xml_arr['EventKey'] == 'guanli'){
-            $list = ClassModel::get();
+                $msg = '我好你也好';
+            echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
+        
+            // $list = ClassModel::get();
             //如果表空，就添加
-            if($list == null){
-                return view('wechat/class_add');die;
-            }else{
-                //如果不空，修改
-                return view('wechat/class_update');
-            }
+            // if($list == null){
+            //     return view('wechat/class_add');die;
+            // }else{
+            //     //如果不空，修改
+            //     return view('wechat/class_update');
+            // }
             
         }
     }
