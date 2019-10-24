@@ -11,22 +11,23 @@
 					<option value="语文">语文</option>
 					<option value="数学">数学</option>
 					<option value="英语">英语</option>
-				 </select>
+				 </select><br>
 		第二节课：<select name="two" id="">
 					<option value="语文">语文</option>
 					<option value="数学">数学</option>
 					<option value="英语">英语</option>
-				 </select>
+				 </select><br>
 		第三节课：<select name="three" id="">
 					<option value="语文">语文</option>
 					<option value="数学">数学</option>
 					<option value="英语">英语</option>
-				 </select>
+				 </select><br>
 		第四节课：<select name="four" id="">
 					<option value="语文">语文</option>
 					<option value="数学">数学</option>
 					<option value="英语">英语</option>
-				 </select>
+				 </select><br>
+				 <input type="submit" value="添加">
 	</form>
 </body>
 </html>

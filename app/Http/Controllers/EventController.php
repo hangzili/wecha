@@ -40,7 +40,16 @@ class EventController extends Controller
             $list = ClassModel::get();
             //如果表空，就添加
             if($list == null){
-                return view('wechat/class_add');die;
+                // return view('wechat/class_add');die;
+                $data = [
+                    "name"=>'菜单',
+                    'sub_button'=>[
+                        "type"=>'view',
+                        'name'=>'展示',
+                        'url'=>'http://www.a.cn/wechat/class_add'
+                    ]
+                ];
+    
             }else{
                 //如果不空，修改
                 return view('wechat/class_update');
@@ -52,6 +61,12 @@ class EventController extends Controller
         public function class_add_do(Request $request)
         {
             $all = $request->all();
+            
+        }
+        //课程添加
+        public function class_add(Request $request)
+        {
+            return view('wechat/class_add');
             
         }
 
@@ -106,8 +121,3 @@ class EventController extends Controller
 }
             
         
-
-    
-
-    
-

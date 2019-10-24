@@ -134,5 +134,6 @@ Route::get('/wechat/create_qrcode','WechaController@create_qrcode');
 Route::get('/wechat/location','WechaController@get_lication');
 
 //课程添加
-Route::post('/wechat/class_add_do','EventController@class_add_do');
+Route::any('/wechat/class_add_do','EventController@class_add_do');
+Route::any('/wechat/class_add','EventController@class_add');
 
