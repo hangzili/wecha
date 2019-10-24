@@ -43,7 +43,7 @@ class EventController extends Controller
                 // return view('wechat/class_add');die;
                 $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->tools->get_access_token();
                 $data = [
-                    "name"=>'菜单',
+                    "name"=>'查看课程',
                     'sub_button'=>[
                         "type"=>'view',
                         'name'=>'展示',
