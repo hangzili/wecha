@@ -45,14 +45,16 @@ class EventController extends Controller
             return view('wechat/class_add');
         }else{
             //修改
-            echo 32;
+            $list = ClassModel::get();
+            return view('wechat/class_update',['list'=>$list]);
         }
     }
         //课程添加执行
         public function class_add_do(Request $request)
         {
             $all = $request->all();
-            
+            $res = ClassModel::create($all);
+
         }
         
 
