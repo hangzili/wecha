@@ -34,29 +34,18 @@ class EventController extends Controller
             $msg = '欢迎'.$wechat_user['nickname'].'同学进入选课系统！';
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         }
-        //点击管理课程
-        if($xml_arr['MsgType'] == 'event' && $xml_arr['EventKey'] == 'guanli'){
         
-            $list = ClassModel::get();
-            //如果表空，就添加
-            if($list == null){
-                // return view('wechat/class_add');die;
-                $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->tools->get_access_token();
-                $data = [
-                    "name"=>'查看课程',
-                    'sub_button'=>[
-                        "type"=>'view',
-                        'name'=>'展示',
-                        'url'=>'http://www.a.cn/wechat/class_add'
-                    ]
-                ];
-                $re = $this->tools->curl_post($url,json_encode($data));
-    
-            }else{
-                //如果不空，修改
-                return view('wechat/class_update');
-            }
-            
+    }
+    //点击课程管理
+    public function guanli()
+    {
+        $list = ClassModel::select();
+        // dd($list);
+        if($list){
+            return view('wechat/class_add');
+        }else{
+            //修改
+            echo 32;
         }
     }
         //课程添加执行
@@ -65,12 +54,7 @@ class EventController extends Controller
             $all = $request->all();
             
         }
-        //课程添加
-        public function class_add(Request $request)
-        {
-            return view('wechat/class_add');
-            
-        }
+        
 
 
 
