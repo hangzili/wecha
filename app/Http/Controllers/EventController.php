@@ -40,7 +40,7 @@ class EventController extends Controller
     public function guanli()
     {
         $list = ClassModel::select();
-        // dd($list);
+        // dd($list);3
         if($list){
             return view('wechat/class_add');
         }else{
