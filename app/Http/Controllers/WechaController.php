@@ -23,12 +23,11 @@ class WechaController extends Controller
         // dd($user_info);
         return view('Wechat.wechatList',['user_info'=>$user_info]);
     }
-    //
+    //带参数的二维码
     public function create_qrcode(Request $request)
     {
         $req = $request->all();
         $url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token='.$this->tools->get_access_token();
-        //{"expire_seconds": 604800, "action_name": "QR_SCENE", "action_info": {"scene": {"scene_id": 123}}}
         $data = [
             'expire_seconds'=> 30 * 24 * 3600,
             'action_name'=>'QR_SCENE',
@@ -40,21 +39,19 @@ class WechaController extends Controller
         ];
         $re = $this->tools->curl_post($url,json_encode($data));
         $result = json_decode($re,1);
+        // dd($result);
         $qrcode_url = 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$result['ticket'];
         $qrcode_source = $this->tools->curl_get($qrcode_url);
+        // dd($qrcode_source);
         $qrcode_name = $req['uid'].rand(10000,99999).'.jpg';
+        
         Storage::put('wechat/qrcode/'.$qrcode_name, $qrcode_source);
         User::where(['id'=>$req['uid']])->update([
             'qrcode_url'=>'/storage/wechat/qrcode/'.$qrcode_name
         ]);
         return redirect('/wechat/wechat_list');
     }
-	public function index()
-	{
-		// echo file_get_contents("https://api.weixin.qq.com/cgi-bin/user/get?access_token=26_VERDJYBBRsfb5FtbhnudveRNWGFSCUVAheqbEA_taRi6nMrNn5VBHdrETk_q_PtMdgjffiN_5Ofbg1Y3-uauMFjt5HDtTP3sIA0J0TrYmHtjQZ50nymSfYId8BNG59NQRup7cEc_AupGwWA4NKVgAJABYJ&next_openid=");
-		// $res=$this->wechat_access_token();
-		// echo $res;
-	}
+	
 	
     public function user()
     {

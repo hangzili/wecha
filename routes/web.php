@@ -118,9 +118,9 @@ Route::any('/wecha/do_upload','ResourceController@do_upload');
 Route::any('/wecha/source_list','ResourceController@source_list');
 
 //自定义菜单
-Route::any('/wecha/menu','ResourceController@menu');
-Route::any('/wecha/menulist','MenuController@craete_menu');
-Route::any('/wecha/menuabc','MenuController@menuabc');
+// Route::any('/wecha/menu','ResourceController@menu');
+// Route::any('/wecha/menulist','MenuController@craete_menu');
+// Route::any('/wecha/menuabc','MenuController@menuabc');
 
 Route::get('/wechat/menu_list','MenuController@menu_list'); //菜单列表
 Route::post('/wechat/create_menu','MenuController@create_menu'); //菜单
@@ -133,4 +133,6 @@ Route::get('/wechat/create_qrcode','WechaController@create_qrcode');
 
 Route::get('/wechat/location','WechaController@get_lication');
 
+//课程添加
+Route::post('/wechat/class_add_do','EventController@class_add_do');
 
