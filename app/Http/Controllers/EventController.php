@@ -16,72 +16,86 @@ class EventController extends Controller
         $this->tools=$tools;
         $this->request=$request;
     }
-    //管理
+    //
     public function event()
     {
-    		// 接收xml数据  接收微信发过来的数据
+    		//
     	$info = file_get_contents("php://input");
-    		//将字符串写入文件
+    		//
         file_put_contents(storage_path('logs/wechat/'.date('Y-m-d').'.log'),"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n",FILE_APPEND);
         file_put_contents(storage_path('logs/wechat/'.date('Y-m-d').'.log'),$info,FILE_APPEND);
-        	//xml格式字符串转化为对应的SimpleXMLElement对象   解析xml数据的
+        	//
         $xml_obj = simplexml_load_string($info,'SimpleXMLElement',LIBXML_NOCDATA);
-        	//将对象转化为数组格式23
+        	//
         $xml_arr = (array)$xml_obj;
-            //关注之后回消息
+            //
         if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'subscribe'){
             $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
-            $msg = '欢迎'.$wechat_user['nickname'].'同学进入选课系统！';
+            $msg = '»¶Ó­'.$wechat_user['nickname'].'Í¬Ñ§½øÈëÑ¡¿ÎÏµÍ³£¡';
+            echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
+            //获取用户基本信息
+
+            $list=file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_access_token().'&openid='.$xml_arr['FromUserName'].'&lang=zh_CN');
+            $results=json_decode($list,1);
+
+        }
+            //
+        if($xml_arr['MsgType'] == 'event' && $xml_arr['look'] == 'subscribe'){
+            $list = ClassModel::get()->toArray();
+            $list = $list[0];
+            $msg = '';
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         }
-        
+
     }
-    //点击课程管理
+
+    //点击管理后判断是否有课程
     public function guanli()
     {
         $list = ClassModel::count();
         // dump($list);die;
         // dd($list);
         if($list == 0){
-            //添加
+            //Ìí¼Ó
             return view('wechat/class_add');
         }else{
-            //修改
+            //ÐÞ¸Ä
             $list = ClassModel::get()->toArray();
             $list = $list[0];
+            // dd($list);
             return view('wechat/class_update',['list'=>$list]);
         }
     }
-    //课程添加执行
+    //课程添加执行页面
     public function class_add_do(Request $request)
     {
         $all = $request->all();
         $res = ClassModel::create($all);
     }
-    //课程修改执行
+    //课程修改执行页面
     public function class_update_do(Request $request)
     {
         $all = $request->except('_token');
-        $res = ClassModel::where([])->update($all);
+        $res = ClassModel::where(['id'=>'4'])->update($all);
     }
-        
 
 
 
-            //"你好"   回复 "你好"
-        // if($xml_arr['MsgType'] == 'text' && $xml_arr['Content'] == '你好'){
+
+            //签到
+        // if($xml_arr['MsgType'] == 'text' && $xml_arr['Content'] == 'ÄãºÃ'){
         //     $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
-        //     $msg = '我好你也好';
+        //     $msg = 'ÎÒºÃÄãÒ²ºÃ';
         //     echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         // }
-        // 
-            //签到
+        //
+            //Ç©µ½
         // if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'CLICK' && $xml_arr['EventKey'] == 'sign'){
-        //     //签到
-        //     //判断是否签到
+        //     //Ç©µ½
+        //     //ÅÐ¶ÏÊÇ·ñÇ©µ½
         //     $usere_wechat = UserWechat::where(['openid'=>$xml_arr['FromUserName']])->first();
-        //     $today = date('Y-m-d',time()); //今天
-        //     $last_day = date('Y-m-d',strtotime("-1 days")); //昨天
+        //     $today = date('Y-m-d',time()); //½ñÌì
+        //     $last_day = date('Y-m-d',strtotime("-1 days")); //×òÌì
         //     if($usere_wechat->sign_day == $today){
         //         //已经签到
         //         $msg = '您已签到';
@@ -108,12 +122,12 @@ class EventController extends Controller
         //                 'sign_score'=>$usere_wechat->sign_score + 5
         //                 ]);
         //         }
-        //         $msg = '签到成功';
+        //         $msg = '你已签到';
         //         echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
- 
+
         //         }
         //     }
         // }
 }
-            
-        
+
+

@@ -5,7 +5,7 @@ use App\Http\Controllers\WechaController;
 use Illuminate\Http\Request;
 use App\Tools\Tools;
 use App\Http\Controllers\Controller;
-
+//
 class LabelController extends Controller
 {
     public $tools;

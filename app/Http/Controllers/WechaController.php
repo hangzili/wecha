@@ -61,6 +61,7 @@ class WechaController extends Controller
     	// dump($result);
     	$openid_list=$result['data']['openid'];
     	$lists=[];
+        // dd($openid_list);
     	foreach($openid_list as $v){
 
     		$list=file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_access_token().'&openid='.$v.'&lang=zh_CN');

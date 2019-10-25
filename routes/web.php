@@ -84,7 +84,7 @@
 // Route::any('/cate_adddo','admina\CateController@cate_adddo');
 
 
-Route::any('/user','WechaController@user');//关注者信息
+Route::any('/user','WechaController@user');//获取关注者信息
 //授权登陆
 Route::any('/login',function(){
 	// echo 4;
@@ -137,4 +137,8 @@ Route::get('/wechat/location','WechaController@get_lication');
 Route::any('/wechat/class_add_do','EventController@class_add_do');
 Route::any('/wechat/guanli','EventController@guanli');
 Route::any('/wechat/class_update_do','EventController@class_update_do');
+
+
+
+
 

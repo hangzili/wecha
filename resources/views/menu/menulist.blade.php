@@ -26,6 +26,7 @@
                     菜单事件类型：<select name="event" id="">
                         <option value="click">click</option>
                         <option value="view">view</option>
+                        <option value="view">scancode_push</option>
                     </select><br/><br/>
                     菜单事件值：<input type="text" name="event_key">
                 </div>
