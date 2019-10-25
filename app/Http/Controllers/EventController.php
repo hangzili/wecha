@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Tools\Tools;
 use App\wechat\UserwechaModel as UserWechat;
 use App\wechat\ClassModel;
+use App\Console\Kernel;
 use App\wechat\UserModel;
 class EventController extends Controller
 {
@@ -31,15 +32,13 @@ class EventController extends Controller
             //
         if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'subscribe'){
             $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
-            $msg = '»¶Ó­'.$wechat_user['nickname'].'Í¬Ñ§½øÈëÑ¡¿ÎÏµÍ³£¡';
+            $msg = '欢迎'.$wechat_user['nickname'].'关注';
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
             //获取用户基本信息
 
-            $list=file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_access_token().'&openid='.$xml_arr['FromUserName'].'&lang=zh_CN');
-            $results=json_decode($list,1);
-
         }
-
+        Kernel::command('tell.send')
+            ->everyMinute();
 
     }
 
