@@ -39,13 +39,7 @@ class EventController extends Controller
             $results=json_decode($list,1);
 
         }
-            //
-        if($xml_arr['MsgType'] == 'event' && $xml_arr['look'] == 'subscribe'){
-            $list = ClassModel::get()->toArray();
-            $list = $list[0];
-            $msg = '';
-            echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
-        }
+
 
     }
 
