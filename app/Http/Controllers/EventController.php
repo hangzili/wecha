@@ -37,8 +37,6 @@ class EventController extends Controller
             //获取用户基本信息
 
         }
-        Kernel::command('tell.send')
-            ->everyMinute();
 
     }
 
