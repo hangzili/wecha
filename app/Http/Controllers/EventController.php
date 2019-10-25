@@ -34,41 +34,40 @@ class EventController extends Controller
             $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
             $msg = '欢迎'.$wechat_user['nickname'].'关注';
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
-            //获取用户基本信息
-
         }
+
 
     }
 
     //点击管理后判断是否有课程
-    public function guanli()
-    {
-        $list = ClassModel::count();
-        // dump($list);die;
-        // dd($list);
-        if($list == 0){
-            //Ìí¼Ó
-            return view('wechat/class_add');
-        }else{
-            //ÐÞ¸Ä
-            $list = ClassModel::get()->toArray();
-            $list = $list[0];
-            // dd($list);
-            return view('wechat/class_update',['list'=>$list]);
-        }
-    }
-    //课程添加执行页面
-    public function class_add_do(Request $request)
-    {
-        $all = $request->all();
-        $res = ClassModel::create($all);
-    }
-    //课程修改执行页面
-    public function class_update_do(Request $request)
-    {
-        $all = $request->except('_token');
-        $res = ClassModel::where(['id'=>'4'])->update($all);
-    }
+//    public function guanli()
+//    {
+//        $list = ClassModel::count();
+//        // dump($list);die;
+//        // dd($list);
+//        if($list == 0){
+//            //Ìí¼Ó
+//            return view('wechat/class_add');
+//        }else{
+//            //ÐÞ¸Ä
+//            $list = ClassModel::get()->toArray();
+//            $list = $list[0];
+//            // dd($list);
+//            return view('wechat/class_update',['list'=>$list]);
+//        }
+//    }
+//    //课程添加执行页面
+//    public function class_add_do(Request $request)
+//    {
+//        $all = $request->all();
+//        $res = ClassModel::create($all);
+//    }
+//    //课程修改执行页面
+//    public function class_update_do(Request $request)
+//    {
+//        $all = $request->except('_token');
+//        $res = ClassModel::where(['id'=>'4'])->update($all);
+//    }
 
 
 
