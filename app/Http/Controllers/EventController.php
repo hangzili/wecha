@@ -17,7 +17,7 @@ class EventController extends Controller
         $this->tools=$tools;
         $this->request=$request;
     }
-    //
+    //接受消息，回消息
     public function event()
     {
     		//
@@ -29,7 +29,7 @@ class EventController extends Controller
         $xml_obj = simplexml_load_string($info,'SimpleXMLElement',LIBXML_NOCDATA);
         	//
         $xml_arr = (array)$xml_obj;
-            //
+            //关注之后回消息
         if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'subscribe'){
             $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
             $msg = '欢迎'.$wechat_user['nickname'].'关注';
