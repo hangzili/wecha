@@ -91,7 +91,7 @@ Route::any('/login',function(){
 });
 //授权登陆后获取基本信息
 Route::any('/wecha/login','wecha\LoginController@wecha_login');
-Route::any('/wecha/code','wecha\LoginController@wecha_code');
+Route::any('/wecha/code','wecha\LoginController@wecha_code');//登陆后获取关注者基本信息
 //给用户打标签 删除  修改
 Route::any('/label_list','wecha\LabelController@label_list');
 Route::any('/label_add','wecha\LabelController@label_add');

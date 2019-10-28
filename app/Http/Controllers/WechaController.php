@@ -44,21 +44,21 @@ class WechaController extends Controller
         $qrcode_source = $this->tools->curl_get($qrcode_url);
         // dd($qrcode_source);
         $qrcode_name = $req['uid'].rand(10000,99999).'.jpg';
-        
+
         Storage::put('wechat/qrcode/'.$qrcode_name, $qrcode_source);
         User::where(['id'=>$req['uid']])->update([
             'qrcode_url'=>'/storage/wechat/qrcode/'.$qrcode_name
         ]);
         return redirect('/wechat/wechat_list');
     }
-	
-	
+
+
     public function user()
     {
     	$res=file_get_contents('https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$this->tools->get_access_token().'&next_openid=');
     	// dd($res);
     	$result=json_decode($res,1);
-    	// dump($result);
+//    	 dump($result);
     	$openid_list=$result['data']['openid'];
     	$lists=[];
         // dd($openid_list);
