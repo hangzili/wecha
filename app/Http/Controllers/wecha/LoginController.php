@@ -7,12 +7,14 @@ use App\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {
+    //授权登陆
     public function wecha_login()
     {
-    	$urls=urlencode(env('APP_URL').'/wecha/code');
-    	$url= 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcc4c342a42f5b788&redirect_uri=http://www.a.cn/wecha/code&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect';
+    	$urls=urlencode(env('APP_URL').'/wecha/kess_add');
+    	$url= 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcc4c342a42f5b788&redirect_uri=http://www.a.cn/wecha/kess_add&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect';
     	header('Location:'.$url);
     }
+    //授权登陆后获取关注着的基本信息
     public function wecha_code(Request $request)
     {
     	$req=$request->all();

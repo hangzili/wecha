@@ -43,6 +43,12 @@ class EventController extends Controller
 
 
     }
+    //我要表白  表白添加页面
+    public function kess_add()
+    {
+        return view('wecha/kess_add');
+    }
+
 
     //点击管理后判断是否有课程
 //    public function guanli()
