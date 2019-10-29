@@ -40,7 +40,7 @@ class LoginController extends Controller
         $openid = $urls1['data']['openid'];
         $lists=[];
         foreach($openid as $k=>$v){
-//            dump($v);
+//            循环获取关注着信息
             $list=file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_access_token().'&openid='.$v.'&lang=zh_CN');
             $results=json_decode($list,1);
             $lists[]=$results;

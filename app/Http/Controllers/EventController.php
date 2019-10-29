@@ -37,7 +37,12 @@ class EventController extends Controller
         }
         if($xml_arr['MsgType'] == 'text' && $xml_arr['Content'] == '你好'){
             $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
-            $msg = '欢迎'.$wechat_user['nickname'].'关注';
+            $msg = '你好我也好🚀';
+            echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
+        }
+        if($xml_arr['MsgType'] == 'text' && $xml_arr['Content'] == '李子航'){
+            $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
+            $msg = '爷爷在次🈶';
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         }
 
