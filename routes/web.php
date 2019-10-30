@@ -89,7 +89,7 @@ Route::any('/user','WechaController@user');//获取关注者信息
 Route::any('/login',function(){
 	return view('wecha/login');
 });
-//授权登陆后获取基本信息
+//授权登陆后获取基本信息2
 Route::any('/wecha/login','wecha\LoginController@wecha_login');
 Route::any('/wecha/code','wecha\LoginController@wecha_code');//登陆后获取关注者基本信息
 //给用户打标签 删除  修改

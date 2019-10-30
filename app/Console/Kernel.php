@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     {
         //任务调度，没分钟发一个消息
         $schedule->call(function () {
-            $msg = '爷爷在次🈶';
+            $msg = '世界这莫大';
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
 
         })->everyMinute();
