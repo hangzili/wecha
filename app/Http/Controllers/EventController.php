@@ -40,9 +40,8 @@ class EventController extends Controller
             $msg = '白伟';
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         }
-        if($xml_arr['MsgType'] == 'text' && $xml_arr['Content'] == ''){
-            $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
-            $msg = 'www.a.cn'./storage/wechat/image/15712324757034.jpg;
+        if($xml_arr['MsgType'] == 'text' && $xml_arr['Content'] == '2'){
+            $msg = 'www.a.cn/storage/wechat/image/15712324757034.jpg';
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         }
 
