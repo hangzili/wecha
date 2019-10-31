@@ -42,12 +42,13 @@ class EventController extends Controller
         }
         //回复图片消息
         if($xml_arr['MsgType'] == 'text' && $xml_arr['Content'] == '2'){
+                $time = time();
 //            $msg = 'www.a.cn/storage/wechat/image/15712324757034.jpg';
 //            echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
             echo "<xml>
                   <ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName>
                   <FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName>
-                  <CreateTime>1571232477</CreateTime>
+                  <CreateTime>$time</CreateTime>
                   <MsgType><![CDATA[image]]></MsgType>
                   <Image>
                     <MediaId><![CDATA[1]]></MediaId>
