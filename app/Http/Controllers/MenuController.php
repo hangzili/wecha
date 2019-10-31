@@ -115,9 +115,9 @@ class MenuController extends Controller
                 }
                 $data['button'][] = $menu_arr;
             }
-        }
-        echo "<pre>";
-        print_r($data);
+        };
+//        echo "<pre>";
+//        print_r($data);
         $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->tools->get_access_token();
         $re = $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
         dd($re);

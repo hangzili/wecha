@@ -140,6 +140,10 @@ Route::any('/wechat/class_update_do','EventController@class_update_do');
 //考试联系  表白
 Route::any('/wechat/kess_add','EventController@kess_add');
 
+//菜单添加
+Route::any('/wechat/bran_add','EventController@bran_add');
+
+
 
 
 

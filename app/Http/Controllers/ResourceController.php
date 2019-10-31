@@ -23,9 +23,9 @@ class ResourceController extends Controller
     	$all=$request->all();
     	$type_arr=['image'=>1,'voice'=>2,'video'=>3];
     	$type=$all['type'];
-    	if(!$this->request->hasFile('rsource')){
-    		dd('没有文件');
-    	};
+//    	if(!$this->request->hasFile('rsource')){
+//    		dd('没有文件');
+//    	};
     	$file_obj = $this->request->file('rsource');
     	$file_ext = $file_obj->getClientOriginalExtension();
     	$file_name = time().rand(1000,9999).'.'.$file_ext;
@@ -43,9 +43,9 @@ class ResourceController extends Controller
     		];
     	}
     	$re=$this->tools->wechat_curl_file($url,json_encode($data));
-
+//        dd($re);
     	$result=json_decode($re,1);
-        // dd($result);
+         dd($result);
     	if(!isset($result['errcode'])){
     		ResourceModel::create([
     			'meida_id'=>$result['media_id'],
@@ -53,6 +53,7 @@ class ResourceController extends Controller
     			'path'=>'/storage/'.$path,
     			'addtime'=>time()
     		]);
+    		echo 3;
     	}
     	// dd($result);2
     }
@@ -80,7 +81,7 @@ class ResourceController extends Controller
         $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->tools->get_access_token();
         $data= [
                 "button"=>[
-                    [  
+                    [
                          "type"=>"click",
                         "name"=>"今日歌曲",
                         "key"=>"V1001_TODAY_MUSIC"
@@ -88,7 +89,7 @@ class ResourceController extends Controller
                     [
                        "name"=>"菜单",
                        "sub_button"=>[
-                       [    
+                       [
                            "type"=>"view",
                            "name"=>"搜索",
                            "url"=>"http://www.soso.com/"

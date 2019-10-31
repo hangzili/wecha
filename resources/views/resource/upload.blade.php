@@ -9,9 +9,9 @@
 		@csrf
 		<select name="type" id="">
 			<option value="image">图片</option>
-			<option value="video">视频</option>
-			<option value="thumb">缩略图</option>
-			<option value="voice">语音</option>
+{{--			<option value="video">视频</option>--}}
+{{--			<option value="thumb">缩略图</option>--}}
+{{--			<option value="voice">语音</option>--}}
 		</select><br>
 		<input type="file" name="rsource"><br>
 		<input type="submit" value="上传">

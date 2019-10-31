@@ -58,6 +58,32 @@ class EventController extends Controller
 
 
     }
+    //添加菜单
+    public function bran_add()
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->tools->get_access_token();
+        $data = [
+            "button"=>[
+                [
+                    "type"=>"click",
+                    "name"=>"查天气",
+                    "key"=>"V1001_TODAY_MUSIC"
+                ],
+                [
+                    "name"=>"菜单",
+                    "sub_button"=>[
+                        [
+                            "type"=>"view",
+                            "name"=>"个人中心",
+                            "url"=>"47.94.20.198/wecha/login"
+                        ]
+                        ]
+                    ]
+                ]
+        ];
+        $re=$this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+        dump($re);
+    }
     //我要表白  表白添加页面
 //    public function kess_add()
 //    {
