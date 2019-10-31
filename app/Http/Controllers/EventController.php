@@ -32,20 +32,17 @@ class EventController extends Controller
             //关注之后回消息
         if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'subscribe'){
             $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
-            $msg = '欢迎'.$wechat_user['nickname'].'关注';
+            $msg = '您好，'.$wechat_user['nickname'].'帅哥。欢迎关注我的公众号';
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         }
-//        if($xml_arr['MsgType'] == 'text' && $xml_arr['Content'] == '你好'){
-//            $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
-//            $msg = '你好我也好🚀';
-//            echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
-//        }
-        if($xml_arr['MsgType'] == 'text' && $xml_arr['Content'] == '李子航'){
+        if($xml_arr['MsgType'] == 'text' && $xml_arr['Content'] == '1'){
             $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
-            $msg = '爷爷在次🈶';
+            $msg = '白伟';
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
-        }else{
-            $msg = $xml_arr['Content'];
+        }
+        if($xml_arr['MsgType'] == 'text' && $xml_arr['Content'] == ''){
+            $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
+            $msg = 'www.a.cn'./storage/wechat/image/15712324757034.jpg;
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         }
 
