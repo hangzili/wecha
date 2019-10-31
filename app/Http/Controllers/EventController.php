@@ -75,7 +75,7 @@ class EventController extends Controller
                         [
                             "type"=>"view",
                             "name"=>"个人中心",
-                            "url"=>"47.94.20.198/wecha/login"
+                            "url"=>"http://47.94.20.198/wecha/login"
                         ]
                         ]
                     ]
