@@ -34,19 +34,19 @@ class LoginController extends Controller
         //获取登陆的人的基本信息
     	$url3=file_get_contents('https://api.weixin.qq.com/sns/userinfo?access_token='.$url2['access_token'].'&openid='.$url2['openid'].'&lang=zh_CN');
 //    	dump($url3);
-//        $urls = 'https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$this->tools->get_access_token().'&next_openid=';
-//        $urls1=$this->tools->curl_get($urls);
-//        $urls1=json_decode($urls1,1);
-//        $openid = $urls1['data']['openid'];
-//        $lists=[];
+        $urls = 'https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$this->tools->get_access_token().'&next_openid=';
+        $urls1=$this->tools->curl_get($urls);
+        $urls1=json_decode($urls1,1);
+        $openid = $urls1['data']['openid'];
+        $lists=[];
 //        foreach($openid as $k=>$v){
-////            循环获取关注着信息
-//            $list=file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_access_token().'&openid='.$v.'&lang=zh_CN');
-//            $results=json_decode($list,1);
-//            $lists[]=$results;
+//            循环获取关注着信息
+            $list=file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_access_token().'&openid=oZi7qw5zG0HWRefZxAeT74SlNtF8&lang=zh_CN');
+            $results=json_decode($list,1);
+            $lists[]=$results;
 //        }
         //获取关注者列表
 //        dump($lists);
-        return view('wechat/kess_ado',['lists'=>$url3]);
+        return view('wechat/kess_ado',['lists'=>$lists]);
     }
 }
