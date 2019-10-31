@@ -69,17 +69,12 @@ class EventController extends Controller
                     "name"=>"查天气",
                     "key"=>"V1001_TODAY_MUSIC"
                 ],
-                [
-                    "name"=>"菜单",
-                    "sub_button"=>[
                         [
                             "type"=>"view",
                             "name"=>"个人中心",
                             "url"=>"http://47.94.20.198/wecha/login"
                         ]
                         ]
-                    ]
-                ]
         ];
         $re=$this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
         dump($re);
