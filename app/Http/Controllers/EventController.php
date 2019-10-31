@@ -79,6 +79,14 @@ class EventController extends Controller
         $re=$this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
         dump($re);
     }
+    //天气
+    public function tianqi()
+    {
+        $url = 'http://api.k780.com/?app=weather.today&weaid=1&appkey=c9aff0e9b9ed0b07cf225c6c6b93df37&sign=d0718ce33311c00082b84ccc78399ffe&format=json';
+        $re = $this->tools->curl_get($url);
+        $result = json_decode($re,1);
+        dump($result);
+    }
     //我要表白  表白添加页面
 //    public function kess_add()
 //    {
